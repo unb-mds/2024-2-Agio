@@ -19,6 +19,10 @@ def register_view(request):
             # Verificar se o email já está em uso
             if UserTable.objects.filter(email=email).exists():
                 return JsonResponse({'error': "Este e-mail já está registrado."}, status=400)
+            
+            # Verificar se o username já está em uso
+            if UserTable.objects.filter(name=name).exists():
+                return JsonResponse({'error': "Este username já está registrado."}, status=400)
 
             # Criar o usuário
             UserTable.objects.create(name=name, email=email, password=password)

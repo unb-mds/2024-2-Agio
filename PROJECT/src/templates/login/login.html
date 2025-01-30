@@ -6,41 +6,57 @@
     <h1>Login</h1>
     <br/>
     <div class="login-fields">
+        {% csrf_token %}  <!-- Django gera automaticamente o token CSRF -->
+
         <label for="username">Username</label>
-        <input type="text" id="username" placeholder="Enter your username">
+        <input type="text" id="username" placeholder="Enter your username" required>
 
         <label for="password">Password</label>
-        <input type="password" id="password" placeholder="Enter your password">
+        <input type="password" id="password" placeholder="Enter your password" required>
 
-        <button id="login-button" onclick="handleLogin()">Login</button>
+        <button type="button" onclick="handleLogin()">Login</button>
     </div>
 </div>
 
 <script>
+    function getCSRFToken() {
+        const cookies = document.cookie.split('; ');
+        for (const cookie of cookies) {
+            const [name, value] = cookie.split('=');
+            if (name === 'csrftoken') {
+                return value;
+            }
+        }
+        return '';
+    }
+
     function handleLogin() {
         const username = document.getElementById('username').value;
         const password = document.getElementById('password').value;
+        const csrfToken = getCSRFToken(); // Obtém o token CSRF dos cookies
 
-        // Envie os dados usando uma requisição fetch ou similar
+        if (!username || !password) {
+            alert("Por favor, preencha todos os campos.");
+            return;
+        }
+
         fetch('/login/', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                'X-CSRFToken': '{{ csrf_token }}', // Inclua o token CSRF no cabeçalho
+                'X-CSRFToken': csrfToken,  // Adiciona o token CSRF no cabeçalho
             },
-            body: JSON.stringify({
-                username: username,
-                password: password,
-            }),
+            body: JSON.stringify({ username, password }),
         })
-        .then(response => {
-            if (response.ok) {
-                window.location.href = '/homepage/'; // Redirecione após o login bem-sucedido
+        .then(response => response.json())
+        .then(data => {
+            if (data.redirect_url) {
+                window.location.href = data.redirect_url; // Redireciona para o dashboard
             } else {
-                alert('Login failed. Please check your credentials.');
+                alert(data.error || 'Falha no login. Verifique suas credenciais.');
             }
         })
-        .catch(error => console.error('Error:', error));
+        .catch(error => console.error('Erro:', error));
     }
 </script>
 {% endblock content %}

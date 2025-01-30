@@ -35,6 +35,6 @@ urlpatterns = [
     path('', home_page_view, name='homepage'),  # Página inicial (raiz)
     path('homepage/', home_page_view, name='homepage_redirect'),  # Opcional, caso queira um redirecionamento explícito
     path('dashboard/', dashboard_view, name='dashboard'),
-    path('login/', login_view.as_view(), name='login'),
+    path('login/', login_view, name='login'),
     path('register/', register_view, name='register'),
 ]
