@@ -1,0 +1,44 @@
+nav {
+    margin: 0;
+    padding: 10px 20px;
+    background-color: #ffffff;
+    color: #15a12d;
+    text-align: center;
+}
+
+nav a {
+    color: white;
+    margin: 0 15px;
+    text-decoration: none;
+}
+
+nav a:hover {
+    text-decoration: underline;
+}
+
+main {
+    padding: 20px;
+}
+
+section {
+    margin-bottom: 30px;
+}
+
+ul {
+    padding-left: 20px;
+}
+
+#hero button {
+    background-color: #06c;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 20px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+#hero button:hover {
+    background-color: #0071e3;
+    color: white;
+}

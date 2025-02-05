@@ -1,0 +1,19 @@
+{
+    "version": 2,
+    "builds": [
+      {
+        "src": "src/mysite/wsgi.py",
+        "use": "@vercel/python"
+      }
+    ],
+    "routes": [
+      {
+        "src": "/(.*)",
+        "dest": "src/mysite/wsgi.py"
+      }
+    ],
+    "build": {
+    "cmd": "python start.py"
+    }
+  }
+  

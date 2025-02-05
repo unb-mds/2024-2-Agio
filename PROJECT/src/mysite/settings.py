@@ -12,6 +12,12 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 
 from pathlib import Path
 from decouple import config
+from dotenv import load_dotenv
+import dj_database_url
+import os
+
+# Carrega variáveis do .env
+load_dotenv()
 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -22,12 +28,13 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-5s=d(xk9gnlkf74a#n7%ii&9&ya123ffh^8!d@n-czplgqq=cm'
+SECRET_KEY = os.environ.get('SECRET_KEY', '')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+# DEBUG = True
+DEBUG = os.environ.get('DJANGO_DEBUG', '') != 'False'
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -49,6 +56,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -86,14 +94,17 @@ DATABASES = {
     #     'ENGINE': 'django.db.backends.sqlite3',
     #     'NAME': BASE_DIR / 'db.sqlite3',
     # }
-       'default': {
-       'ENGINE': 'django.db.backends.postgresql',
-       'NAME': config('POSTGRES_DB'),
-       'USER': config('POSTGRES_USER'),
-       'PASSWORD': config('POSTGRES_PASSWORD'),
-       'HOST': config('POSTGRES_HOST'),
-       'PORT': config('POSTGRES_PORT'),
-   }
+#        'default': {
+#        'ENGINE': 'django.db.backends.postgresql',
+#        'NAME': config('POSTGRES_DB'),
+#        'USER': config('POSTGRES_USER'),
+#        'PASSWORD': config('POSTGRES_PASSWORD'),
+#        'HOST': config('POSTGRES_HOST'),
+#        'PORT': config('POSTGRES_PORT'),
+#    }
+     'default': dj_database_url.config(
+        default=os.getenv('DATABASE_URL', 'postgres://default_user:default_password@localhost:5432/default_db')
+    )
 }
 
 
@@ -133,7 +144,10 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-# Se você estiver usando um diretório para arquivos estáticos no seu projeto
+# Usado apenas em produção
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
+# Se você estiver usando um diretório para arquivos estáticos no seu projeto, apenas em desenvolvimento
 STATICFILES_DIRS = [
     BASE_DIR / "static",  # Altere conforme necessário
 ]
@@ -143,3 +157,10 @@ STATICFILES_DIRS = [
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+STORAGES = {
+    # ...
+    "staticfiles": {
+        "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
+    },
+}

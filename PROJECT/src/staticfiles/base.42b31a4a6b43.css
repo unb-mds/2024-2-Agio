@@ -1,0 +1,63 @@
+/* Estilo global */
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+/* Estilo para o corpo */
+body {
+    background-color: #fafafc; /* Fundo da página */
+    margin: 0;
+    padding: 0;
+    min-height: 100vh; /* Altura mínima igual à altura da tela */
+    display: flex;
+    flex-direction: column; /* Layout flex para alinhar o rodapé no fim */
+}
+
+/* Estilo para o cabeçalho */
+header {
+    background-color: #ffffff;
+    color: #161617;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    width: 100%; /* Garante que ocupe toda a largura */
+}
+
+header h2 {
+    font-size: 30px;
+}
+
+nav ul {
+    list-style: none;
+    display: flex;
+    padding: 0;
+}
+
+nav ul li {
+    margin: 0 15px;
+}
+
+nav ul li a {
+    text-decoration: none;
+    color: #161617;
+    font-size: 18px;
+}
+
+/* Estilo para o conteúdo principal */
+main {
+    flex: 1; /* Expande o main para ocupar o espaço restante */
+    padding: 20px; /* Espaçamento interno */
+}
+
+/* Estilo para o rodapé */
+footer {
+    background-color: #c9c9c9;
+    color: #161617;
+    text-align: center;
+    font-size: 22px;
+    padding: 30px 0;
+    width: 100%; /* Garante que o rodapé ocupe toda a largura */
+}
