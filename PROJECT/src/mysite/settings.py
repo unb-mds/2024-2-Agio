@@ -82,6 +82,9 @@ WSGI_APPLICATION = 'mysite.wsgi.application'
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
 import os
+from dotenv import load_dotenv
+
+load_dotenv()
 
 DATABASES = {
     'default': {
@@ -95,7 +98,7 @@ DATABASES = {
 }
 
 SECRET_KEY = os.getenv('SECRET_KEY', 'unsafe-secret-key')
-DEBUG = os.getenv('DEBUG', 'False').lower() in ('true', '1')
+DEBUG = os.getenv('DEBUG', 'True').lower() in ('true', '1')
 
 
 # Password validation
