@@ -16,6 +16,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from apps.dashboard.views import product_manager
 from apps.homepage.views import (
     home_page_view,
 )
@@ -25,8 +26,7 @@ from apps.dashboard.views import (
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', home_page_view, name='homepage'),
-    path('/', home_page_view, name='homepage'),
-    path('homepage/', home_page_view, name= "homepage"),
-    path('dashboard/', dashboard_view, name= "dashboard"),
+    path('', home_page_view, name='homepage'),  # Rota principal para a homepage
+    path('dashboard/', dashboard_view, name='dashboard'),  # Rota para o dashboard
+    path('product-manager/', product_manager, name='product_manager'),
 ]

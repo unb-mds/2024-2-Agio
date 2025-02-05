@@ -1,6 +1,11 @@
-# 📚 2024-2-Squad04 📚 <!-- omit from toc -->
+# 📚AGIO📚
+<!-- ###### Aplicação de Gestão de Inventário Otimizada -->
+![Lint Critical Status](https://github.com/unb-mds/2024-2-Agio/actions/workflows/lint-critical.yml/badge.svg)
+![Lint Style Status](https://github.com/unb-mds/2024-2-Agio/actions/workflows/lint-style.yml/badge.svg)
 
 <br>
+
+##  2024-2-Squad04 
 
 ## ***Sumário*** <!-- omit from toc -->
 - [1. Descrição 💡](#1-descrição-)

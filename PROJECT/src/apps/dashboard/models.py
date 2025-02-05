@@ -4,10 +4,15 @@ from django.contrib.auth.hashers import make_password
 
 # Create your models here.
 class ProductTable(models.Model):
-    username = models.CharField(max_length=255)
-    product_name = models.CharField(max_length=255)
-    price = models.DecimalField(max_digits=10, decimal_places=2)
+    product_name = models.CharField(max_length=255, unique=True)
     amount = models.IntegerField()
+    category = models.CharField(max_length=255, default="Sem categoria")
+    description = models.CharField(max_length=255, default="Sem descrição")
+    price = models.DecimalField(max_digits=10, decimal_places=2)
+
+    def __str__(self):
+        return self.product_name
+
 
 class UserTable(models.Model):
     id = models.IntegerField(primary_key=True)
