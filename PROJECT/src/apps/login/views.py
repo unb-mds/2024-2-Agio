@@ -1,4 +1,6 @@
-from django.http import JsonResponse
+from rest_framework.views import APIView
+from rest_framework.response import Response
+from rest_framework import status
 from django.shortcuts import render
 from django.contrib.auth.hashers import check_password
 import json
@@ -6,31 +8,29 @@ from apps.dashboard.models import UserTable
 from django.views.decorators.csrf import ensure_csrf_cookie
 
 @ensure_csrf_cookie  # Corrigido: Agora o decorador está aplicado corretamente
-def login_view(request):
-    if request.method == 'POST':
+class login_view(APIView):
+    def GET(self, request):
+        return render(request, 'login/login.html')
+
+    def POST(self, request):
         try:
-            data = json.loads(request.body)
+            data = request.data
             username = data.get('username')
             password = data.get('password')
 
-            if not username or not password:
-                return JsonResponse({'error': "Todos os campos são obrigatórios."}, status=400)
+            if not all(username, password):
+                return Response({'error': "Todos os campos são obrigatórios."}, status=status.HTTP_400_BAD_REQUEST)
 
             # Buscar usuário pelo nome
             user = UserTable.objects.filter(name=username).first()
             if user is None or not check_password(password, user.password):
-                return JsonResponse({'error': "Credenciais inválidas."}, status=401)
+                return Response({'error': "Credenciais inválidas."}, status=status.HTTP_401_UNAUTHORIZED)
 
             # Armazena o usuário na sessão
             request.session['user_id'] = user.id
             request.session['username'] = user.name
 
-            return JsonResponse({'message': "Login realizado com sucesso!", 'redirect_url': "/dashboard/"}, status=200)
+            return Response({'message': "Login realizado com sucesso!", 'redirect_url': "/dashboard/"}, status=status.HTTP_200_OK)
 
         except Exception as e:
-            return JsonResponse({'error': f"Erro ao realizar login: {str(e)}"}, status=500)
-
-    elif request.method == 'GET':
-        return render(request, 'login/login.html')
-
-    return JsonResponse({'error': "Método não permitido."}, status=405)
+            return Response({'error': f"Erro ao realizar login: {str(e)}"}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
