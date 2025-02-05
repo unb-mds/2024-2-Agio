@@ -39,7 +39,7 @@ jobs:
         pip install -r PROJECT/REQUIREMENTS.txt  # Atualizado para usar o arquivo correto
 
     - name: Run Tests
-      run: python manage.py test
+      run: python .\PROJECT\src\manage.py test
       env:
         POSTGRES_USER: ${{ secrets.POSTGRES_USER }}
         POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
