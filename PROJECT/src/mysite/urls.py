@@ -26,7 +26,7 @@ from apps.dashboard.views import (
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', home_page_view, name='homepage'),  # Rota principal para a homepage
-    path('dashboard/', dashboard_view, name='dashboard'),  # Rota para o dashboard
+    path('', home_page_view, name='homepage'),  # Rota principal para homepage
+    path('dashboard/', dashboard_view, name='dashboard'),  # Rota pro dashboard
     path('product-manager/', product_manager, name='product_manager'),
 ]
