@@ -1,0 +1,21 @@
+{
+  "version": 2,
+  "builds": [
+    {
+      "src": "mysite/wsgi.py",
+      "use": "@vercel/python"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/(.*)",
+      "dest": "mysite/wsgi.py"
+    }
+  ],
+  "build": {
+    "env": {
+      "PYTHONPATH": "src"
+    },
+    "cmd": "gunicorn mysite.wsgi"
+  }
+}
