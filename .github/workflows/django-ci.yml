@@ -1,0 +1,50 @@
+name: Django CI
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Install PostgreSQL
+      run: sudo apt-get install postgresql postgresql-contrib -y
+
+    - name: Start PostgreSQL Service
+      run: sudo service postgresql start
+
+    - name: Setup Database
+      run: |
+        sudo -u postgres psql -c "CREATE USER $POSTGRES_USER WITH PASSWORD '$POSTGRES_PASSWORD';"
+        sudo -u postgres psql -c "CREATE DATABASE $POSTGRES_DB OWNER $POSTGRES_USER;"
+      env:
+        POSTGRES_USER: ${{ secrets.POSTGRES_USER }}
+        POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
+        POSTGRES_DB: ${{ secrets.POSTGRES_DB }}
+
+    - name: Set up Python
+      uses: actions/setup-python@v3
+      with:
+        python-version: 3.12.2
+
+    - name: Install Dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r PROJECT/REQUIREMENTS.txt  # Atualizado para usar o arquivo correto
+
+    - name: Run Tests
+      run: python PROJECT/src/manage.py test
+      env:
+        POSTGRES_USER: ${{ secrets.POSTGRES_USER }}
+        POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
+        POSTGRES_DB: ${{ secrets.POSTGRES_DB }}
+        POSTGRES_HOST: "localhost"
+        POSTGRES_PORT: "5432"
+        SECRET_KEY: ${{ secrets.SECRET_KEY }}
+        DEBUG: "False"

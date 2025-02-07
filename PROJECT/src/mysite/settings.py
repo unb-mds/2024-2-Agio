@@ -81,20 +81,24 @@ WSGI_APPLICATION = 'mysite.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
+import os
+from dotenv import load_dotenv
+
+load_dotenv()
+
 DATABASES = {
-    # 'default': {
-    #     'ENGINE': 'django.db.backends.sqlite3',
-    #     'NAME': BASE_DIR / 'db.sqlite3',
-    # }
-       'default': {
-       'ENGINE': 'django.db.backends.postgresql',
-       'NAME': config('POSTGRES_DB'),
-       'USER': config('POSTGRES_USER'),
-       'PASSWORD': config('POSTGRES_PASSWORD'),
-       'HOST': config('POSTGRES_HOST'),
-       'PORT': config('POSTGRES_PORT'),
-   }
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': os.getenv('POSTGRES_DB', 'default_db'),
+        'USER': os.getenv('POSTGRES_USER', 'default_user'),
+        'PASSWORD': os.getenv('POSTGRES_PASSWORD', 'default_password'),
+        'HOST': os.getenv('POSTGRES_HOST', 'localhost'),
+        'PORT': os.getenv('POSTGRES_PORT', '5432'),
+    }
 }
+
+SECRET_KEY = os.getenv('SECRET_KEY', 'unsafe-secret-key')
+DEBUG = os.getenv('DEBUG', 'False').lower() in ('true', '1')
 
 
 # Password validation

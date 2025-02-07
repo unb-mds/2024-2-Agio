@@ -1,90 +1,147 @@
 {% extends 'base.html' %}
 {% block content %}
-<div class="pad">
-  <h1>Inventário de Estoque</h1>
-  <br>
 
-  <button class="btn" onclick="openModal()">Adicionar Item</button>
-  
-  <table id="inventory-table">
-    <thead>
-      <tr>
-        <th>Nome do Item</th>
-        <th>Quantidade</th>
-        <th>Categoria</th>
-        <th>Descrição</th>
-        <th>Preço</th>
-      </tr>
-    </thead>
-    <tbody>
-      <!-- Os itens serão adicionados aqui dinamicamente -->
-    </tbody>
-  </table>
-  
-  <div id="itemModal" class="modal">
-    <div class="modal-content">
-      <div class="modal-header">Adicionar Novo Item</div>
-      <form id="itemForm">
-        <label for="itemName">Nome do Item:</label><br>
-        <input type="text" id="itemName" name="itemName" required><br><br>
-        <label for="itemQuantity">Quantidade:</label><br>
-        <input type="number" id="itemQuantity" name="itemQuantity" required><br><br>
-        <label for="itemCategory">Categoria:</label><br>
-        <input type="text" id="itemCategory" name="itemCategory" required><br><br>
-        <label for="itemDescription">Descrição:</label><br>
-        <textarea id="itemDescription" name="itemDescription" rows="4" required></textarea><br><br>
-        <label for="itemPrice">Preço:</label><br>
-        <input type="text" id="itemPrice" name="itemPrice" required><br><br>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-close" onclick="closeModal()">Cancelar</button>
-          <button type="submit" class="btn">Adicionar</button>
-        </div>
-      </form>
+<main>
+    <section id="hero" style="background-color: #e2e2e2; color: #161617; padding: 20px 40px; border-radius: 20px; text-align: center; margin: 5px 0;">
+        <h1>Inventário de Estoque</h1>
+        <br>
+        <button onclick="openModal()">
+            Adicionar Item
+        </button>
+    </section>
+    
+
+    <section id="content" style="padding: 5px 20px;">
+        <h2 style="text-align: center; color: #333;">Produtos no Estoque</h2>
+        <br>
+        <table id="inventory-table" style="width: 100%; border-collapse: collapse; text-align: left;">
+            <thead style="background-color: #e2e2e2;">
+                <tr>
+                    <th style="padding: 10px;">Nome do Item</th>
+                    <th style="padding: 10px;">Quantidade</th>
+                    <th style="padding: 10px;">Categoria</th>
+                    <th style="padding: 10px;">Descrição</th>
+                    <th style="padding: 10px;">Preço</th>
+                    <th style="padding: 10px;">Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for product in products %}
+                <tr style="border-bottom: 1px solid #e2e2e2;">
+                    <td style="padding: 10px;">{{ product.product_name }}</td>
+                    <td style="padding: 10px;">{{ product.amount }}</td>
+                    <td style="padding: 10px;">{{ product.category }}</td>
+                    <td style="padding: 10px;">{{ product.description }}</td>
+                    <td style="padding: 10px;">{{ product.price }}</td>
+                    <td style="padding: 10px;">
+                        <button onclick="deleteProduct('{{ product.product_name }}')" style="padding: 5px 10px; background-color: #d9534f; color: #fff; border: none; border-radius: 5px; cursor: pointer;">
+                            Excluir
+                        </button>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </section>
+</main>
+
+<!-- Modal para Adicionar Produto -->
+<div id="itemModal" class="modal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.5); justify-content: center; align-items: center;">
+    <div class="modal-content" style="background: #fff; padding: 20px; border-radius: 10px; max-width: 500px; width: 100%; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);">
+        <h2 style="text-align: center; margin-bottom: 20px;">Adicionar Novo Produto</h2>
+        <form id="itemForm" method="post" style="display: flex; flex-direction: column; gap: 15px;">
+            {% csrf_token %}
+            <label for="itemName">Nome do Item:</label>
+            <input type="text" id="itemName" name="product_name" required style="padding: 10px; border: 1px solid #ccc; border-radius: 5px;">
+
+            <label for="itemQuantity">Quantidade:</label>
+            <input type="number" id="itemQuantity" name="amount" required style="padding: 10px; border: 1px solid #ccc; border-radius: 5px;">
+
+            <label for="itemCategory">Categoria:</label>
+            <input type="text" id="itemCategory" name="category" required style="padding: 10px; border: 1px solid #ccc; border-radius: 5px;">
+
+            <label for="itemDescription">Descrição:</label>
+            <textarea id="itemDescription" name="description" rows="4" required style="padding: 10px; border: 1px solid #ccc; border-radius: 5px;"></textarea>
+
+            <label for="itemPrice">Preço:</label>
+            <input type="number" step="0.01" id="itemPrice" name="price" required style="padding: 10px; border: 1px solid #ccc; border-radius: 5px;">
+
+            <div class="modal-footer" style="display: flex; justify-content: space-between; gap: 10px; margin-top: 20px;">
+                <button type="button" onclick="closeModal()" style="padding: 10px 20px; background-color: #ccc; border: none; border-radius: 5px; cursor: pointer;">Cancelar</button>
+                <button type="submit" style="padding: 10px 20px; background-color: #333; color: #fff; border: none; border-radius: 5px; cursor: pointer;">Adicionar</button>
+            </div>
+        </form>
     </div>
-  </div>
 </div>
 
-
 <script>
-  const modal = document.getElementById('itemModal');
-  const form = document.getElementById('itemForm');
-  const table = document.getElementById('inventory-table').getElementsByTagName('tbody')[0];
-
-  function openModal() {
-    modal.style.display = 'flex';
-  }
-
-  function closeModal() {
-    modal.style.display = 'none';
-    form.reset();
-  }
-
-  form.addEventListener('submit', function (event) {
-    event.preventDefault();
-    
-    const name = document.getElementById('itemName').value;
-    const quantity = document.getElementById('itemQuantity').value;
-    const category = document.getElementById('itemCategory').value;
-    const description = document.getElementById('itemDescription').value;
-    const price = document.getElementById('itemPrice').value;
-
-    // Criar nova linha na tabela
-    const newRow = table.insertRow();
-    newRow.insertCell(0).innerText = name;
-    newRow.insertCell(1).innerText = quantity;
-    newRow.insertCell(2).innerText = category;
-    newRow.insertCell(3).innerText = description;
-    newRow.insertCell(4).innerText = price;
-
-    closeModal();
-  });
-
-  // Fechar o modal ao clicar fora dele
-  window.onclick = function(event) {
-    if (event.target === modal) {
-      closeModal();
+    // Abre o modal
+    function openModal() {
+        document.getElementById('itemModal').style.display = 'flex';
     }
-  }
+
+    // Fecha o modal
+    function closeModal() {
+        document.getElementById('itemModal').style.display = 'none';
+        document.getElementById('itemForm').reset();
+    }
+
+    // Interceptar envio do formulário
+    document.getElementById("itemForm").addEventListener("submit", async function (event) {
+        event.preventDefault(); // Impede o envio padrão do formulário
+
+        const formData = new FormData(this);
+
+        try {
+            const response = await fetch("{% url 'product_manager' %}", {
+                method: "POST",
+                body: formData,
+                headers: {
+                    "X-CSRFToken": "{{ csrf_token }}", // Adiciona o CSRF token
+                },
+            });
+
+            if (response.ok) {
+                alert("Produto adicionado com sucesso!");
+                closeModal(); // Fecha o modal
+                location.reload(); // Recarrega a tabela no dashboard
+            } else {
+                const errorData = await response.json();
+                alert("Erro ao adicionar produto: " + JSON.stringify(errorData));
+            }
+        } catch (error) {
+            console.error("Erro ao enviar os dados:", error);
+            alert("Ocorreu um erro ao tentar adicionar o produto.");
+        }
+    });
+
+    // Função para excluir um produto
+    async function deleteProduct(productName) {
+        const confirmation = confirm(`Tem certeza de que deseja excluir o produto "${productName}"?`);
+        if (!confirmation) return;
+
+        try {
+            const response = await fetch("{% url 'product_manager' %}", {
+                method: "DELETE",
+                body: JSON.stringify({ product_name: productName }),
+                headers: {
+                    "Content-Type": "application/json",
+                    "X-CSRFToken": "{{ csrf_token }}",
+                },
+            });
+
+            if (response.ok) {
+                alert(`Produto "${productName}" excluído com sucesso!`);
+                location.reload(); // Recarrega a tabela no dashboard
+            } else {
+                const errorData = await response.json();
+                alert("Erro ao excluir produto: " + JSON.stringify(errorData));
+            }
+        } catch (error) {
+            console.error("Erro ao excluir o produto:", error);
+            alert("Ocorreu um erro ao tentar excluir o produto.");
+        }
+    }
 </script>
 
 {% endblock content %}

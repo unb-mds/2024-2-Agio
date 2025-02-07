@@ -13,7 +13,9 @@ import json
 # Create your views here.
 
 def dashboard_view(request):
-    return render(request, "dashboard/dashboard.html", {})
+    products = ProductTable.objects.all()
+    return render(request, "dashboard/dashboard.html", {"products": products})
+
 
 @api_view(['GET', 'POST', 'PUT', 'DELETE'])
 def product_manager(request):
