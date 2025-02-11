@@ -41,10 +41,15 @@
                     <td style="padding: 10px;">{{ product.description }}</td>
                     <td style="padding: 10px;">{{ product.price }}</td>
                     <td style="padding: 10px;">
-                        <button onclick="deleteProduct('{{ product.product_name }}')" style="padding: 5px 10px; background-color: #d9534f; color: #fff; border: none; border-radius: 5px; cursor: pointer;">
+                        <button onclick="editProduct('{{ product.product_name }}', '{{ product.amount }}', '{{ product.category }}', '{{ product.description }}', '{{ product.price }}')" 
+                            style="padding: 5px 10px; background-color: #f0ad4e; color: #fff; border: none; border-radius: 5px; cursor: pointer; margin-right: 5px;">
+                            Editar
+                        </button>
+                        <button onclick="deleteProduct('{{ product.product_name }}')" 
+                            style="padding: 5px 10px; background-color: #d9534f; color: #fff; border: none; border-radius: 5px; cursor: pointer;">
                             Excluir
                         </button>
-                    </td>
+                    </td>                    
                 </tr>
                 {% endfor %}
             </tbody>
@@ -76,6 +81,37 @@
             <div class="modal-footer" style="display: flex; justify-content: space-between; gap: 10px; margin-top: 20px;">
                 <button type="button" onclick="closeModal()" style="padding: 10px 20px; background-color: #ccc; border: none; border-radius: 5px; cursor: pointer;">Cancelar</button>
                 <button type="submit" style="padding: 10px 20px; background-color: #333; color: #fff; border: none; border-radius: 5px; cursor: pointer;">Adicionar</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- Modal para Editar Produto -->
+<div id="editModal" class="modal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.5); justify-content: center; align-items: center;">
+    <div class="modal-content" style="background: #fff; padding: 20px; border-radius: 10px; max-width: 500px; width: 100%; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);">
+        <h2 style="text-align: center; margin-bottom: 20px;">Editar Produto</h2>
+        <form id="editForm" method="post" style="display: flex; flex-direction: column; gap: 15px;">
+            {% csrf_token %}
+            <input type="hidden" id="editItemNameOriginal" name="product_name_original">
+
+            <label for="editItemName">Nome do Item:</label>
+            <input type="text" id="editItemName" name="product_name" required style="padding: 10px; border: 1px solid #ccc; border-radius: 5px;">
+
+            <label for="editItemQuantity">Quantidade:</label>
+            <input type="number" id="editItemQuantity" name="amount" required style="padding: 10px; border: 1px solid #ccc; border-radius: 5px;">
+
+            <label for="editItemCategory">Categoria:</label>
+            <input type="text" id="editItemCategory" name="category" required style="padding: 10px; border: 1px solid #ccc; border-radius: 5px;">
+
+            <label for="editItemDescription">Descrição:</label>
+            <textarea id="editItemDescription" name="description" rows="4" required style="padding: 10px; border: 1px solid #ccc; border-radius: 5px;"></textarea>
+
+            <label for="editItemPrice">Preço:</label>
+            <input type="number" step="0.01" id="editItemPrice" name="price" required style="padding: 10px; border: 1px solid #ccc; border-radius: 5px;">
+
+            <div class="modal-footer" style="display: flex; justify-content: space-between; gap: 10px; margin-top: 20px;">
+                <button type="button" onclick="closeEditModal()" style="padding: 10px 20px; background-color: #ccc; border: none; border-radius: 5px; cursor: pointer;">Cancelar</button>
+                <button type="submit" style="padding: 10px 20px; background-color: #333; color: #fff; border: none; border-radius: 5px; cursor: pointer;">Salvar Alterações</button>
             </div>
         </form>
     </div>
@@ -166,6 +202,53 @@
             })
             .catch(error => console.error("Erro ao baixar CSV:", error));
     });
+
+// Abre o modal de edição e preenche os campos com os dados do produto
+function editProduct(name, amount, category, description, price) {
+    document.getElementById('editItemNameOriginal').value = name;
+    document.getElementById('editItemName').value = name;
+    document.getElementById('editItemQuantity').value = amount;
+    document.getElementById('editItemCategory').value = category;
+    document.getElementById('editItemDescription').value = description;
+    document.getElementById('editItemPrice').value = price;
+
+    document.getElementById('editModal').style.display = 'flex';
+}
+
+// Fecha o modal de edição
+function closeEditModal() {
+    document.getElementById('editModal').style.display = 'none';
+    document.getElementById('editForm').reset();
+}
+
+// Intercepta o envio do formulário de edição
+document.getElementById("editForm").addEventListener("submit", async function (event) {
+    event.preventDefault();
+
+    const formData = new FormData(this);
+
+    try {
+        const response = await fetch("{% url 'product_manager' %}", {
+            method: "PUT",
+            body: formData,
+            headers: {
+                "X-CSRFToken": "{{ csrf_token }}",
+            },
+        });
+
+        if (response.ok) {
+            alert("Produto atualizado com sucesso!");
+            closeEditModal();
+            location.reload();
+        } else {
+            const errorData = await response.json();
+            alert("Erro ao atualizar produto: " + JSON.stringify(errorData));
+        }
+    } catch (error) {
+        console.error("Erro ao enviar os dados:", error);
+        alert("Ocorreu um erro ao tentar atualizar o produto.");
+    }
+});
 </script>
 
 {% endblock content %}
