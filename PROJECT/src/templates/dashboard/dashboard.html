@@ -2,15 +2,18 @@
 {% block content %}
 
 <main>
-    <section id="hero" style="background-color: #e2e2e2; color: #161617; padding: 20px 40px; border-radius: 20px; text-align: center; margin: 5px 0;">
+    <section id="hero" style="background-color: #e2e2e2; color: #161617; padding: 20px 40px; border-radius: 20px; text-align: center; margin: 5px 0; display: flex; justify-content: space-between; align-items: center;">
         <h1>Inventário de Estoque</h1>
-        <br>
-        <button onclick="openModal()">
-            Adicionar Item
-        </button>
+        <div>
+            <button onclick="openModal()" style="margin-right: 10px;">
+                Adicionar Item
+            </button>
+            <button id="download-btn" class="btn btn-primary">
+                Baixar CSV
+            </button>
+        </div>
     </section>
     
-
     <section id="content" style="padding: 5px 20px;">
         <h2 style="text-align: center; color: #333;">Produtos no Estoque</h2>
         <br>
@@ -142,6 +145,23 @@
             alert("Ocorreu um erro ao tentar excluir o produto.");
         }
     }
+
+    // Função para exportar os dados como CSV
+    document.getElementById("download-btn").addEventListener("click", function() {
+        fetch("/dashboard/export/csv/")
+            .then(response => response.json())
+            .then(data => {
+                const csvContent = data.csv_data;
+                const blob = new Blob([csvContent], { type: "text/csv" });
+                const link = document.createElement("a");
+                link.href = URL.createObjectURL(blob);
+                link.download = "dashboard.csv";
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+            })
+            .catch(error => console.error("Erro ao baixar CSV:", error));
+    });
 </script>
 
 {% endblock content %}

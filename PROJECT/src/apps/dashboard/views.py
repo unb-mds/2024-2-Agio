@@ -8,7 +8,8 @@ from rest_framework import status
 from .models import ProductTable
 from .serializers import ProductSerializer
 
-# import json
+import csv
+from io import StringIO
 
 # Create your views here.
 
@@ -18,6 +19,18 @@ def dashboard_view(request):
     return render(request, "dashboard/dashboard.html",
                   {"products": products})
 
+@api_view(['GET'])
+def export_dashboard_csv(request):
+    """Gera um CSV e retorna como string"""
+    
+    output = StringIO()
+    writer = csv.writer(output)
+    writer.writerow(['ID', 'Nome', 'Descrição', 'Preço'])  # Cabeçalhos do CSV
+
+    for product in ProductTable.objects.all():
+        writer.writerow([product.id, product.product_name, product.description, product.price])
+
+    return Response({"csv_data": output.getvalue()}, status=status.HTTP_200_OK)
 
 @api_view(['GET', 'POST', 'PUT', 'DELETE'])
 def product_manager(request):
