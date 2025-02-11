@@ -18,14 +18,23 @@
       </div>
       <nav>
         <ul>
-          <li><a href="{% url 'homepage' %}">Home</a></li>
-          <li><a href="#manage-inventories">Manage Inventories</a></li>
-          <li><a href="{% url 'dashboard' %}">Dashboard</a></li>
-          <li><a href="#others">Others</a></li>
-          <li><a href="{% url 'register' %}">Register</a></li>
-          <li><a href="{% url 'login' %}">Login</a></li>
-          <li><a href="#contact">Contact</a></li>
-          <li><a href="#about">About</a></li>
+          {% if request.session.user_id %}
+            <li><a href="{% url 'homepage' %}">Home</a></li>
+            <li><a href="{% url 'dashboard' %}">Dashboard</a></li>
+            <li>
+              <form id="logout-form" action="{% url 'logout' %}" method="post" style="display: inline;">
+                  {% csrf_token %}
+                  <button type="submit" style="background: none; border: none; color: rgb(0, 0, 0); cursor: pointer; font-size: 16px;">Logout</button>
+              </form>
+            </li>
+            <li><a href="#contact">Contact</a></li>
+            <li><a href="#about">About</a></li>
+          {% else %}
+            <li><a href="{% url 'homepage' %}">Home</a></li>
+            <li><a href="{% url 'login' %}">Login</a></li>
+            <li><a href="#contact">Contact</a></li>
+            <li><a href="#about">About</a></li>
+          {% endif %}
         </ul>
       </nav>
     </header>

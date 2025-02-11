@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 # from django.http import HttpResponse, JsonResponse
 
 from rest_framework.decorators import api_view
@@ -12,11 +12,15 @@ from .serializers import ProductSerializer
 
 # Create your views here.
 
-
 def dashboard_view(request):
+    # Verifica se o usuário está logado verificando a sessão
+    if not request.session.get('user_id'):
+        return redirect('login')  # Redireciona para a página de login se não estiver autenticado
+
+    # Se estiver logado, carrega os produtos
     products = ProductTable.objects.all()
-    return render(request, "dashboard/dashboard.html",
-                  {"products": products})
+    
+    return render(request, "dashboard/dashboard.html", {"products": products})
 
 
 @api_view(['GET', 'POST', 'PUT', 'DELETE'])

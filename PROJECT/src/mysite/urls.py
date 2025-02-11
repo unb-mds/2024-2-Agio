@@ -24,7 +24,7 @@ from apps.dashboard.views import (
     dashboard_view,
 )
 from apps.login.views import (
-    login_view,
+    login_view, logout_view
 )
 
 
@@ -34,7 +34,6 @@ urlpatterns = [
     path('homepage/', home_page_view, name='homepage_redirect'),  # Opcional, caso queira um redirecionamento explícito
     path('dashboard/', dashboard_view, name='dashboard'),
     path('login/', login_view, name='login'),
+    path('logout/', logout_view, name='logout'),
     path('product-manager/', product_manager, name='product_manager'),
-
-
 ]

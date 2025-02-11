@@ -1,5 +1,5 @@
 from django.http import JsonResponse
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.contrib.auth.hashers import check_password
 import json
 from apps.dashboard.models import UserTable
@@ -32,5 +32,19 @@ def login_view(request):
 
     elif request.method == 'GET':
         return render(request, 'login/login.html')
+
+    return JsonResponse({'error': "Método não permitido."}, status=405)
+
+def logout_view(request):
+    if request.method == 'POST':  # Logout via requisição AJAX
+        try:
+            request.session.flush()  # Remove todos os dados da sessão
+            return JsonResponse({'message': "Logout realizado com sucesso!", 'redirect_url': "/login/"}, status=200)
+        except Exception as e:
+            return JsonResponse({'error': f"Erro ao realizar logout: {str(e)}"}, status=500)
+
+    elif request.method == 'GET':  # Logout via navegação normal
+        request.session.flush()
+        return redirect('/login/')  # Redireciona para a página de login
 
     return JsonResponse({'error': "Método não permitido."}, status=405)
