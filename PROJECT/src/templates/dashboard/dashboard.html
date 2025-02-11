@@ -2,9 +2,11 @@
 {% block content %}
 
 <main>
-    <section id="hero" style="background-color: #e2e2e2; color: #161617; padding: 20px 40px; border-radius: 20px; text-align: center; margin: 5px 0; display: flex; justify-content: space-between; align-items: center;">
+    <section id="hero" style="background-color: #e2e2e2; color: #161617; padding: 20px 40px; border-radius: 20px; text-align: center; margin: 5px 0; display: flex; justify-content: space-between; align-items: center; flex-direction: column;">
         <h1>Inventário de Estoque</h1>
-        <div>
+        <br>
+        <br>
+        <div class="div-button">
             <button onclick="openModal()" style="margin-right: 10px;">
                 Adicionar Item
             </button>
@@ -13,6 +15,8 @@
             </button>
         </div>
     </section>
+
+    <br>
     
     <section id="content" style="padding: 5px 20px;">
         <h2 style="text-align: center; color: #333;">Produtos no Estoque</h2>
