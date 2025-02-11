@@ -15,18 +15,20 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
+from django.urls import include, path
 from apps.dashboard.views import product_manager
 from apps.homepage.views import (
     home_page_view,
 )
 from apps.dashboard.views import (
     dashboard_view,
+    export_dashboard_csv,
 )
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', home_page_view, name='homepage'),  # Rota principal para homepage
     path('dashboard/', dashboard_view, name='dashboard'),  # Rota pro dashboard
+    path('dashboard/export/csv/', export_dashboard_csv, name='export_csv'),
     path('product-manager/', product_manager, name='product_manager'),
 ]
