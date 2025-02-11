@@ -15,14 +15,15 @@ class ProductTable(models.Model):
 
 
 class UserTable(models.Model):
-    id = models.AutoField(primary_key=True)  # Ajustado para um campo AutoField, mais prático para IDs
+    id = models.AutoField(primary_key=True)  # Ajusta para um campo AutoField
     name = models.CharField(max_length=255)
-    email = models.EmailField(unique=True)  # Adicionado `unique=True` para evitar duplicatas
+    email = models.EmailField(unique=True)  # Evitar duplicatas
     password = models.CharField(max_length=255)
 
     # Função para proteger a senha
     def save(self, *args, **kwargs):
-        if not self.pk or 'password' in kwargs.get('update_fields', []):  # Protege a senha apenas na criação ou atualização direta
+        # Protege a senha apenas na criação ou atualização direta
+        if not self.pk or 'password' in kwargs.get('update_fields', []):
             self.password = make_password(self.password)
         super().save(*args, **kwargs)
 

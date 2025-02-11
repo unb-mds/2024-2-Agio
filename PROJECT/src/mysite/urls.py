@@ -33,7 +33,7 @@ from apps.login.views import (
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', home_page_view, name='homepage'),  # Página inicial (raiz)
-    path('homepage/', home_page_view, name='homepage_redirect'),  # Opcional, caso queira um redirecionamento explícito
+    path('homepage/', home_page_view, name='homepage_redirect'),  # Opcional
     path('dashboard/', dashboard_view, name='dashboard'),
     path('dashboard/export/csv/', export_dashboard_csv, name='export_csv'),
     path('login/', login_view, name='login'),

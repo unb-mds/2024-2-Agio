@@ -1,13 +1,21 @@
 from django.contrib import admin
-from apps.dashboard.models import *
+from apps.dashboard.models import UserTable, ProductTable
 
 
 # Register your models here.
 
 @admin.register(UserTable)
-class SeuModeloAdmin(admin.ModelAdmin):
-    list_display = ['id', 'name', 'email', 'password'] 
+class UserTableAdmin(admin.ModelAdmin):
+    list_display = ['id',
+                    'name',
+                    'email',
+                    'password']
+
 
 @admin.register(ProductTable)
-class SeuModeloAdmin(admin.ModelAdmin):
-    list_display = ['product_name', 'amount', 'category', 'description','price'] 
+class ProductTableAdmin(admin.ModelAdmin):
+    list_display = ['product_name',
+                    'amount',
+                    'category',
+                    'description',
+                    'price']

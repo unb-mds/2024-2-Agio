@@ -13,14 +13,15 @@ from io import StringIO
 
 # Create your views here.
 
+
 def dashboard_view(request):
     # Verifica se o usuário está logado verificando a sessão
     if not request.session.get('user_id'):
-        return redirect('login')  # Redireciona para a página de login se não estiver autenticado
+        return redirect('login')  # Redireciona pro login
 
     # Se estiver logado, carrega os produtos
     products = ProductTable.objects.all()
-    
+
     return render(request, "dashboard/dashboard.html", {"products": products})
 
 
