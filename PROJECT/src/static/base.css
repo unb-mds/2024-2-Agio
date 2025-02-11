@@ -21,8 +21,8 @@ header {
     background-color: #ffffff;
     color: #161617;
     display: flex;
-    align-items: center;
-    justify-content: space-around;
+    align-items: center;  /* Alinha itens verticalmente */
+    justify-content: space-between;
     width: 100%; /* Garante que ocupe toda a largura */
 }
 
@@ -38,12 +38,6 @@ nav ul {
 
 nav ul li {
     margin: 0 15px;
-}
-
-nav ul li a {
-    text-decoration: none;
-    color: #161617;
-    font-size: 18px;
 }
 
 /* Estilo para o conteúdo principal */

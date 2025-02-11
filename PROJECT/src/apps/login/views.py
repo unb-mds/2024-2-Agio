@@ -36,15 +36,11 @@ def login_view(request):
     return JsonResponse({'error': "Método não permitido."}, status=405)
 
 def logout_view(request):
-    if request.method == 'POST':  # Logout via requisição AJAX
-        try:
-            request.session.flush()  # Remove todos os dados da sessão
-            return JsonResponse({'message': "Logout realizado com sucesso!", 'redirect_url': "/login/"}, status=200)
-        except Exception as e:
-            return JsonResponse({'error': f"Erro ao realizar logout: {str(e)}"}, status=500)
+    request.session.flush()  # Remove todos os dados da sessão
 
-    elif request.method == 'GET':  # Logout via navegação normal
-        request.session.flush()
-        return redirect('/login/')  # Redireciona para a página de login
+    # Se a requisição for AJAX, retorna JSON
+    if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
+        return JsonResponse({'message': "Logout realizado com sucesso!", 'redirect_url': "/login/"}, status=200)
 
-    return JsonResponse({'error': "Método não permitido."}, status=405)
+    # Para requisições normais (GET ou POST), redireciona para login
+    return redirect('login')

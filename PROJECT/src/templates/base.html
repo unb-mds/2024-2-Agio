@@ -12,27 +12,20 @@
   <link rel="stylesheet" type="text/css" href="{% static 'base.css' %}">
 </head>
 <body>
-    <header>
+    <header style="background-color: #ffffff; color: #161617; display: flex; align-items: center; justify-content: space-between; width: 100%;">
       <div class="logo">
-        <img src="{% static 'images/logo.png' %}" alt="Logo" style="width: 100px; height: auto;">
+        <img src="{% static 'images/logo.png' %}" alt="Logo" style="width: 100px; height: auto; justify-content: left;">
       </div>
       <nav>
         <ul>
           {% if request.session.user_id %}
             <li><a href="{% url 'homepage' %}">Home</a></li>
             <li><a href="{% url 'dashboard' %}">Dashboard</a></li>
-            <li>
-              <form id="logout-form" action="{% url 'logout' %}" method="post" style="display: inline;">
-                  {% csrf_token %}
-                  <button type="submit" style="background: none; border: none; color: rgb(0, 0, 0); cursor: pointer; font-size: 16px;">Logout</button>
-              </form>
-            </li>
-            <li><a href="#contact">Contact</a></li>
+            <li><a href="{% url 'logout' %}">Logout</a></li>
             <li><a href="#about">About</a></li>
           {% else %}
             <li><a href="{% url 'homepage' %}">Home</a></li>
             <li><a href="{% url 'login' %}">Login</a></li>
-            <li><a href="#contact">Contact</a></li>
             <li><a href="#about">About</a></li>
           {% endif %}
         </ul>
