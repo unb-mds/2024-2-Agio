@@ -36,4 +36,5 @@ urlpatterns = [
     path('login/', login_view, name='login'),
     path('product-manager/', product_manager, name='product_manager'),
 
+
 ]
