@@ -1,6 +1,7 @@
 from django.contrib import admin
 from apps.dashboard.models import *
 
+
 # Register your models here.
 
 @admin.register(UserTable)

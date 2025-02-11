@@ -16,6 +16,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from apps.dashboard.views import product_manager
 from apps.homepage.views import (
     home_page_view,
 )
@@ -33,4 +34,6 @@ urlpatterns = [
     path('homepage/', home_page_view, name='homepage_redirect'),  # Opcional, caso queira um redirecionamento explícito
     path('dashboard/', dashboard_view, name='dashboard'),
     path('login/', login_view, name='login'),
+    path('product-manager/', product_manager, name='product_manager'),
+
 ]
