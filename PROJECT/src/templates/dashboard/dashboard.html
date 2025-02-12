@@ -2,18 +2,19 @@
 {% block content %}
 
 <main>
-    <section id="hero" style="background-color: #e2e2e2; color: #161617; padding: 20px 40px; border-radius: 20px; text-align: center; margin: 5px 0; display: flex; justify-content: space-between; align-items: center; flex-direction: column;">
+    <section id="hero" style="background-color: #e6e6e6; color: #161617; padding: 20px 40px; border-radius: 20px; text-align: center; margin: 5px 0; display: flex; justify-content: space-between; align-items: center; flex-direction: column;">
         <h1>Inventário de Estoque</h1>
         <br>
         <br>
         <div class="div-button">
-            <button onclick="openModal()" style="margin-right: 10px;">
+            <br>
+            <button onclick="openModal()" style="margin-right: 10px; background-color: #39413E;">
                 Adicionar Item
             </button>
-            <button id="download-btn" class="btn btn-primary">
+            <button id="download-btn" class="btn btn-primary" style="margin-right: 10px; background-color: #39413E;">
                 Baixar CSV
             </button>
-            </div>
+            <br>
         </div>
     </section>
 
@@ -23,7 +24,7 @@
         <h2 style="text-align: center; color: #333;">Produtos no Estoque</h2>
         <br>
         <div style="text-align: center; margin-bottom: 10px;">
-            <button id="sort-btn" onclick="toggleSorting()" class="btn btn-primary">
+            <button id="sort-btn" onclick="toggleSorting()" class="btn btn-primary" style="margin-right: 10px; background-color: #839791;">
                 {% if order_type == 'alphabetical' %}
                     Ordenar Recentes
                 {% else %}
@@ -51,11 +52,11 @@
                     <td style="padding: 10px;">{{ product.price }}</td>
                     <td style="padding: 10px;">
                         <button onclick="editProduct('{{ product.product_name }}', '{{ product.amount }}', '{{ product.category }}', '{{ product.description }}', '{{ product.price }}')" 
-                            style="padding: 5px 10px; background-color: #f0ad4e; color: #fff; border: none; border-radius: 5px; cursor: pointer; margin-right: 5px;">
+                            style="padding: 5px 10px; background-color: #839791; color: #fff; border: none; border-radius: 5px; cursor: pointer; margin-right: 5px;">
                             Editar
                         </button>
                         <button onclick="deleteProduct('{{ product.product_name }}')" 
-                            style="padding: 5px 10px; background-color: #d9534f; color: #fff; border: none; border-radius: 5px; cursor: pointer;">
+                            style="padding: 5px 10px; background-color: #bd251f; color: #fff; border: none; border-radius: 5px; cursor: pointer;">
                             Excluir
                         </button>
                     </td>                    

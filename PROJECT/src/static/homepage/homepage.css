@@ -1,3 +1,21 @@
+.container {
+    display: flex;
+    flex-direction: column; /* Stacks elements vertically */
+    height: 100vh; /* Full viewport height */
+}
+
+.row {
+    flex: 1; /* Each row takes equal space */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid black;
+}
+
+.row:nth-child(odd) {
+    background-color: lightgray;
+}
+
 nav {
     margin: 0;
     padding: 10px 20px;
@@ -29,7 +47,7 @@ ul {
 }
 
 #hero button {
-    background-color: #06c;
+    background-color: #39413E;
     color: white;
     padding: 10px 20px;
     border: none;
@@ -39,6 +57,6 @@ ul {
 }
 
 #hero button:hover {
-    background-color: #0071e3;
+    background-color: #39413E;
     color: white;
 }
