@@ -3,7 +3,7 @@
     padding: 0;
     margin: 0;
     box-sizing: border-box;
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: Arial, Helvetica, sans-serif; /* Mantendo a mesma fonte */
 }
 
 /* Estilo para o corpo */
@@ -30,6 +30,13 @@ header h2 {
     font-size: 30px;
 }
 
+nav {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    width: 100%;
+}
+
 nav ul {
     list-style: none;
     display: flex;
@@ -38,6 +45,17 @@ nav ul {
 
 nav ul li {
     margin: 0 15px;
+}
+
+/* 🔹 CORREÇÃO: Mantendo o estilo original e apenas garantindo visibilidade */
+nav ul li a {
+    text-decoration: none; /* Remove o sublinhado */
+    color: #161617; /* Mantém a cor do texto original */
+}
+
+/* 🔹 Mantendo o estilo de hover original */
+nav ul li a:hover {
+    color: #007bff; /* Azul ao passar o mouse */
 }
 
 /* Estilo para o conteúdo principal */
