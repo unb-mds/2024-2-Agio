@@ -1,17 +1,20 @@
-# 📚 2024/2 - AGIO 📂 <!-- omit from toc -->
 ![GitHub License](https://img.shields.io/github/license/unb-mds/2024-2-Agio)
 ![GitHub Issues](https://img.shields.io/github/issues/unb-mds/2024-2-Agio)
 ![GitHub Contributors](https://img.shields.io/github/contributors/unb-mds/2024-2-Agio)
-
----
+# ♦ 2024.2 - AGIO 📂 <!-- omit from toc -->
 
 <br>
-Workflows:
+<br>
+Status do Código:
 
 ![Test Status](https://github.com/unb-mds/2024-2-Agio/actions/workflows/django-ci.yml/badge.svg)
 ![Lint Critical Status](https://github.com/unb-mds/2024-2-Agio/actions/workflows/lint-critical.yml/badge.svg)
 ![Lint Style Status](https://github.com/unb-mds/2024-2-Agio/actions/workflows/lint-style.yml/badge.svg)
 
+
+## ***Acesse o site:*** https://agio-inventory-system.vercel.app/ <!-- omit from toc -->
+
+<br>
 
 ## ***Sumário*** <!-- omit from toc -->
 - [1. Resumo 💡](#1-resumo-)
