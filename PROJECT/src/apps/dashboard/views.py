@@ -15,14 +15,20 @@ from io import StringIO
 
 
 def dashboard_view(request):
-    # Verifica se o usuário está logado verificando a sessão
     if not request.session.get('user_id'):
         return redirect('login')  # Redireciona pro login
 
-    # Se estiver logado, carrega os produtos
-    products = ProductTable.objects.all()
+    # Obtém o parâmetro da query string
+    order_type = request.GET.get('order', 'default')
 
-    return render(request, "dashboard/dashboard.html", {"products": products})
+    if order_type == 'alphabetical':
+        products = ProductTable.objects.order_by('product_name')
+    else:
+        products = ProductTable.objects.all()  # Ordem padrão (default)
+
+    return render(request, "dashboard/dashboard.html",
+                  {"products": products,
+                   "order_type": order_type})
 
 
 @api_view(['GET'])

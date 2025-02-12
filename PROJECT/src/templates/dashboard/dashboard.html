@@ -13,6 +13,7 @@
             <button id="download-btn" class="btn btn-primary">
                 Baixar CSV
             </button>
+            </div>
         </div>
     </section>
 
@@ -21,6 +22,14 @@
     <section id="content" style="padding: 5px 20px;">
         <h2 style="text-align: center; color: #333;">Produtos no Estoque</h2>
         <br>
+        <div style="text-align: center; margin-bottom: 10px;">
+            <button id="sort-btn" onclick="toggleSorting()" class="btn btn-primary">
+                {% if order_type == 'alphabetical' %}
+                    Ordenar Recentes
+                {% else %}
+                    Ordenar Alfabeticamente
+                {% endif %}
+            </button>
         <table id="inventory-table" style="width: 100%; border-collapse: collapse; text-align: left;">
             <thead style="background-color: #e2e2e2;">
                 <tr>
@@ -221,6 +230,18 @@ function closeEditModal() {
     document.getElementById('editForm').reset();
 }
 
+function toggleSorting() {
+        const currentUrl = new URL(window.location.href);
+        const currentOrder = currentUrl.searchParams.get("order");
+
+        if (currentOrder === "alphabetical") {
+            currentUrl.searchParams.set("order", "default");
+        } else {
+            currentUrl.searchParams.set("order", "alphabetical");
+        }
+
+        window.location.href = currentUrl.toString();
+    }
 // Intercepta o envio do formulário de edição
 document.getElementById("editForm").addEventListener("submit", async function (event) {
     event.preventDefault();
