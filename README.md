@@ -1,36 +1,30 @@
-# 📚 2024/2 - AGIO 📂 <!-- omit from toc -->
 ![GitHub License](https://img.shields.io/github/license/unb-mds/2024-2-Agio)
 ![GitHub Issues](https://img.shields.io/github/issues/unb-mds/2024-2-Agio)
 ![GitHub Contributors](https://img.shields.io/github/contributors/unb-mds/2024-2-Agio)
-
----
-
-<br>
-Workflows:
-
 ![Test Status](https://github.com/unb-mds/2024-2-Agio/actions/workflows/django-ci.yml/badge.svg)
 ![Lint Critical Status](https://github.com/unb-mds/2024-2-Agio/actions/workflows/lint-critical.yml/badge.svg)
 ![Lint Style Status](https://github.com/unb-mds/2024-2-Agio/actions/workflows/lint-style.yml/badge.svg)
+# ♦ **2024.2 - AGIO** 📂 <!-- omit from toc -->
 
+<br>
+
+### 📌 *Conheça o website:* https://agio-inventory-system.vercel.app/ <!-- omit from toc -->
+---
+
+<br>
 
 ## ***Sumário*** <!-- omit from toc -->
-- [1. Resumo 💡](#1-resumo-)
-- [2. Escopo da Aplicação 💼](#2-escopo-da-aplicação-)
-- [3. Pré-requisitos 📋](#3-pré-requisitos-)
-- [4. Etapas para a Execução do Ambiente 🔧](#4-etapas-para-a-execução-do-ambiente-)
-- [5. Equipe de Desenvolvimento 👥](#5-equipe-de-desenvolvimento-)
+- [1. Escopo da Aplicação 💡](#1-escopo-da-aplicação-)
+- [2. Requisitos para Configuração do Ambiente 📋](#2-requisitos-para-configuração-do-ambiente-)
+- [3. Etapas para a Execução do Ambiente 🔧](#3-etapas-para-a-execução-do-ambiente-)
+- [4. Como Contribuir com o Projeto? 💻](#4-como-contribuir-com-o-projeto-)
+- [5. Política de Segurança e Releases 🔑](#5-política-de-segurança-e-releases-)
+- [6. Equipe de Desenvolvimento 👥](#6-equipe-de-desenvolvimento-)
 
 <br>
 
-
-## 1. Resumo 💡
-O *Agio* (Aplicação de Gestão de Inventário Otimizada) é um projeto open source da disciplina de Métodos de Desenvolvimento de Software, da Universidade de Brasília. O nosso objetivo é trabalhar nas diferentes áreas que envolvem o ciclo de vida de um software, afim de desenvolver uma aplicação de gerenciamento/gestão de inventário(s).
-
-<br>
-
-
-## 2. Escopo da Aplicação 💼
-O *Agio*, ou Aplicação de Gestão de Inventário Otimizada, é um sistema web simples desenvolvido com o objetivo de servir como um controle de inventário de uma corporação de pequeno a médio porte. Dessa forma, o usuário será capaz de manter um controle dos itens presentes no inventário, adicionando e removendo os componentes de acordo com sua necessidade e monitorando-os de forma prática, simples e segura.
+## 1. Escopo da Aplicação 💡
+O *Agio*, ou Aplicação de Gestão de Inventário Otimizada, é um sistema open source web simples da disciplina de Métodos de Desenvolvimento de Software, da Universidade de Brasília. Desenvolvido com o objetivo de servir como um controle de inventário de uma corporação de pequeno a médio porte, é capaz de fornecer ao usuário uma maneira de gerenciar os itens presentes no inventário, adicionando e removendo os componentes de acordo com sua necessidade e monitorando-os de forma prática, simples e segura.
 
 Ao utilizar os serviços do nosso projeto, um usuário encontrará uma série de funcionalidades, dentre elas:
 
@@ -43,17 +37,15 @@ Ao utilizar os serviços do nosso projeto, um usuário encontrará uma série de
 *   Exportação dos componentes de um inventário para um arquivo *.CSV*;
 *   Entre outras, a serem implementadas.
 
-
 <br>
 
-## 3. Pré-requisitos 📋
+## 2. Requisitos para Configuração do Ambiente 📋
 1. Python; [[LINK]](https://www.python.org/downloads/)
-2. Docker Engine (ou Docker desktop); [[LINK]](https://www.docker.com/products/docker-desktop/)
+2. Docker Engine (ou Docker Desktop); [[LINK]](https://www.docker.com/products/docker-desktop/)
 
 <br>
 
-
-## 4. Etapas para a Execução do Ambiente 🔧
+## 3. Etapas para a Execução do Ambiente 🔧
 
 1. Clone o repositório;
     ```Bash
@@ -76,7 +68,7 @@ Ao utilizar os serviços do nosso projeto, um usuário encontrará uma série de
 
 <br>
 
-1. Crie um arquivo ".env" na pasta /PROJECT, e insira as variáveis do projeto (requisitá-las com os desenvolvedores);
+6. Crie um arquivo ".env" e insira as variáveis do projeto (requisite-as com os desenvolvedores);
 
 <br>
 
@@ -100,12 +92,65 @@ Ao utilizar os serviços do nosso projeto, um usuário encontrará uma série de
     ```Bash
     python manage.py runserver
 
-E pronto! Assim o ambiente do projeto está pronto para execução.
+12. Acesse, no navegador, o IP no qual a porta foi aberta. Padrão: ***XXX.X.X.X:8000***
 
 <br>
 
+13. E pronto! Assim o ambiente do projeto estará pronto para execução.
 
-## 5. Equipe de Desenvolvimento 👥
+<br>
+
+## 4. Como Contribuir com o Projeto? 💻
+
+### 🔹 Antes de Começar <!-- omit from toc -->
+- Leia a documentação do projeto no [README](../README.md)  
+- Certifique-se de que sua ideia ou problema ainda não foi reportado.
+
+### 🔹 Reportando Problemas <!-- omit from toc -->
+
+Ao encontrar um problema, abra uma issue no repositório seguindo o modelo:  
+- **Descrição:** Explique o problema de forma clara e objetiva.  
+- **Reprodução:** Liste os passos para reproduzir o problema.  
+- **Resultado Esperado:** O que deveria acontecer?  
+- **Resultado Atual:** O que realmente aconteceu?  
+- **Extras:** Inclua capturas de tela ou logs, se aplicável. 
+
+### 🔹 Solicitando Funcionalidades <!-- omit from toc -->
+
+Se desejar sugerir uma nova funcionalidade, abra uma issue com:  
+- **Descrição:** Explique detalhadamente sua proposta.  
+- **Motivação:** Por que a funcionalidade é importante?  
+- **Exemplo de Uso:** Descreva como a funcionalidade seria usada.  
+
+### 🔹 Contribuindo com o Código <!-- omit from toc -->
+
+Para contribuir com código, siga estas etapas:  
+
+1. Faça um fork deste repositório.  
+2. Crie uma branch para sua funcionalidade ou correção.  
+3. Implemente suas alterações.  
+4. Envie as alterações e crie um pull request.  
+
+
+### 🔹 Mais Informações <!-- omit from toc -->
+
+Para mais informações sobre estrutura de commits e tecnologias utilizadas, consulte o arquivo [CONTRIBUTING](../CONTRIBUTING.md).
+
+<br>
+
+## 5. Política de Segurança e Releases 🔑
+
+Atualmente, as releases do software que possuem as verificações necessárias de segurança estão descritas na tabela abaixo.
+
+| Version | Safety Features          |
+| ------- | ------------------ |
+| 1.0.0   | ✅ |
+
+Para mais informações relacionadas à segurança e à notas de vulnerabilidades, consulte o arquivo [SECURITY](../SECURITY.md).
+
+<br>
+
+## 6. Equipe de Desenvolvimento 👥
 
 | Scrum Master | Product Owner | Front-End Developer | Back-End Developer | Front-End Developer | Architect |
 |:-------------------------------------------------------------:|:-----------------------------------------------------------:|:-----------------------------------------------------------:|:-----------------------------------------------------------:|:-----------------------------------------------------------:|:-----------------------------------------------------------:|
