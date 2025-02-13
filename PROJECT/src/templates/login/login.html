@@ -3,18 +3,18 @@
 
 {% block content %}
 <div class="login-container">
-    <h1>Login</h1>
+    <h1 style="font-family: 'Fauna One', serif; color: #39413e;">Página de Login</h1>
     <br/>
     <div class="login-fields">
         {% csrf_token %}  <!-- Django gera automaticamente o token CSRF -->
 
-        <label for="username">Username</label>
-        <input type="text" id="username" placeholder="Enter your username" required>
+        <label for="username" style="font-family: 'Domine', serif;">Username</label>
+        <input type="text" id="username" placeholder="Insira seu Username" required>
 
-        <label for="password">Password</label>
-        <input type="password" id="password" placeholder="Enter your password" required>
+        <label for="password" style="font-family: 'Domine', serif; padding-top: 3%;">Senha</label>
+        <input type="password" id="password" placeholder="Insira sua senha" required>
 
-        <button type="button" onclick="handleLogin()" style="background-color: #39413E">Login</button>
+        <button type="button" onclick="handleLogin()" style="background-color: #39413E; font-family: 'Yrsa', serif; font-size: 1rem;">Login</button>
     </div>
 </div>
 
