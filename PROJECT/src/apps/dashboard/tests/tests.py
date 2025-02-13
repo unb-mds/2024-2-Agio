@@ -1,14 +1,14 @@
 from django.test import TestCase
 from rest_framework.test import APIClient
 from rest_framework import status
-from dashboard.models import ProductTable
+from apps.dashboard.models import ProductTable
 
 # Create your tests here.
 
 class ProductManagerTests(TestCase):
 
     def setUp(self):
-        self.client = APIClient
+        self.client = APIClient()
         self.product_data = {
             'product_name': 'Test product', 
             'amount': 10, 
@@ -19,7 +19,7 @@ class ProductManagerTests(TestCase):
         self.product = ProductTable.objects.create(**self.product_data)
 
     def test_GET_product_success(self):
-        response = self.client.get('/products/', {'product': self.product.product_name})
+        response = self.client.post('/product-manager/', {'product_name': self.product.product_name}, format='json')
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(response.data['product_name'], self.product.product_name)
         self.assertEqual(response.data['amount'], self.product.amount)
@@ -28,12 +28,12 @@ class ProductManagerTests(TestCase):
         self.assertEqual(response.data['price'], self.product.price)
         
     def test_GET_product_failure_not_found(self):
-        response = self.client.get('/products/', {'product': 'Non existent product'})
+        response = self.client.get('/product-manager/', {'product_name': 'Non existent product'}, format='json')
         self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
         self.assertEqual(response.data['error'], 'Product not found')
 
     def test_GET_product_failure_no_name(self):
-        response = self.client.get('/products/')
+        response = self.client.get('/product-manager/', format='json')
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
         self.assertEqual(response.data['error'], 'Product name not provided')
 
@@ -45,18 +45,18 @@ class ProductManagerTests(TestCase):
             'description': 'A new test product',
             'price': 4.20
         }
-        response = self.client.post('/products/', new_product_data)
+        response = self.client.post('/product-manager/', new_product_data, format='json')
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
         self.assertEqual(response.data['product_name'], new_product_data['product_name'])
-        self.assertTrue(ProductTable.objects.filter(product_name = 'New product').exists())
+        self.assertTrue(ProductTable.objects.filter(product_name='New product').exists())
 
     def test_POST_product_failure_invalid_data(self):
         invalid_data = {'price': 4.20}
-        response = self.client.post('/products/', invalid_data)
+        response = self.client.post('/product-manager/', invalid_data, format='json')
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
 
     def test_POST_failure_duplicate(self):
-        response = self.client.post('/products/', self.product_data)
+        response = self.client.post('/product-manager/', self.product_data, format='json')
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
 
     def test_PUT_product_success(self):
@@ -67,7 +67,7 @@ class ProductManagerTests(TestCase):
             'description': 'Updated description',
             'price': 6.90
         }
-        response = self.client.put('/products/', update_data)
+        response = self.client.put('/product-manager/', update_data, format='json')
         self.assertEqual(response.status_code, status.HTTP_202_ACCEPTED)
         self.product.refresh_from_db()
         self.assertEqual(self.product.amount, 15)
@@ -83,32 +83,32 @@ class ProductManagerTests(TestCase):
             'description': 'Non existent description',
             'price': 6.90
         }
-        response = self.client.put('/products/', update_data)
+        response = self.client.put('/product-manager/', update_data, format='json')
         self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
 
     def test_PUT_product_failure_no_name(self):
         update_data = {'price': 6.90}
-        response = self.client.put('/products/', update_data)
+        response = self.client.put('/product-manager/', update_data, format='json')
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
 
-    def test_PUT_product_partial_success(self):
+    def test_PATCH_product_partial_success(self):
         update_data = {'product_name': self.product.product_name, 'price': 6.90}
-        response = self.client.put('/products/', update_data)
+        response = self.client.patch('/product-manager/', update_data, format='json')
         self.assertEqual(response.status_code, status.HTTP_202_ACCEPTED)
         self.product.refresh_from_db()
         self.assertEqual(self.product.price, 6.90)
 
     def test_DELETE_product_success(self):
-        response = self.client.delete('/products/', {'product': self.product.product_name})
+        response = self.client.delete(f'/product-manager/?product={self.product.product_name}', format='json')
         self.assertEqual(response.status_code, status.HTTP_202_ACCEPTED)
         self.assertFalse(ProductTable.objects.filter(product_name=self.product.product_name).exists())
 
     def test_DELETE_product_failure_not_found(self):
-        response = self.client.delete('/products/', {'product': 'Non existent product'})
+        response = self.client.delete('/product-manager/?product=Non existent product', format='json')
         self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
         self.assertEqual(response.data['error'], 'Product not found')
 
     def test_DELETE_product_failure_no_name(self):
-        response = self.client.delete('/products/')
+        response = self.client.delete('/product-manager/', format='json')
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
         self.assertEqual(response.data['error'], 'Product name not provided')
