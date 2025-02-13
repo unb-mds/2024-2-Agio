@@ -19,12 +19,6 @@ theme:
       icon: material/brightness-7 
       name: Switch to dark mode
 
-    # Palette toggle for dark mode
-    scheme: slate
-    toggle:
-      icon: material/brightness-4
-      name: Switch to light mode
-
   font:
     text: Roboto
     code: Roboto Mono
@@ -39,6 +33,9 @@ nav:
     - "Sprint 4": sprints/sprint-04.md
     - "Sprint 5": sprints/sprint-05.md
     - "Sprint 6": sprints/sprint-06.md
+    - "Sprint 7": sprints/sprint-07.md
+    - "Sprint 8": sprints/sprint-08.md
+    - "Sprint 9": sprints/sprint-09.md
   - Arquitetura: Architecture.md
   # - Storymap (Roadmap): 
   - Protótipos: Protótipos/prototype.md
