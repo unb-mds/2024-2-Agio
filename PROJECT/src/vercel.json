@@ -16,6 +16,6 @@
     "env": {
       "PYTHONPATH": "src"
     },
-    "cmd": "gunicorn mysite.wsgi"
+    "cmd": "python manage_scripts/create_superuser.py && gunicorn mysite.wsgi"
   }
 }
