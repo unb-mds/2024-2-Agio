@@ -7,31 +7,122 @@
   {% load static %}
   <link rel="stylesheet" type="text/css" href="{% static 'dashboard/dashboard.css' %}">
   <link rel="stylesheet" type="text/css" href="{% static 'homepage/homepage.css' %}">
+  <link rel="stylesheet" type="text/css" href="{% static 'login/login.css' %}">
   <link rel="stylesheet" type="text/css" href="{% static 'base.css' %}">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Domine:wght@400..700&family=Fauna+One&family=Yrsa:ital,wght@0,300..700;1,300..700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+    }
+
+    header {
+      background-color: #ffffff;
+      color: #161617;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
+      padding: 10px 20px;
+    }
+
+    .logo img {
+      width: 100px;
+      height: auto;
+    }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 15px;
+      padding: 0;
+      margin: 0;
+    }
+
+    nav ul li {
+      display: inline;
+    }
+
+    nav ul li a {
+      text-decoration: none;
+      color: #161617;
+    }
+
+    .menu-toggle {
+      display: none;
+      font-size: 24px;
+      cursor: pointer;
+      background: none;
+      border: none;
+    }
+
+    @media (max-width: 768px) {
+      header {
+        flex-direction: column;
+        align-items: center;
+      }
+
+      nav ul {
+        flex-direction: column;
+        display: none;
+        width: 100%;
+        text-align: center;
+        padding: 10px 0;
+      }
+
+      nav ul li {
+        display: block;
+        margin: 10px 0;
+      }
+
+      .menu-toggle {
+        display: block;
+      }
+
+      .active {
+        display: flex;
+        flex-direction: column;
+      }
+    }
+  </style>
 </head>
 <body>
     <header>
       <div class="logo">
-        <img src="{% static 'images/logo.png' %}" alt="Logo" style="width: 100px; height: auto;">
+        <img src="{% static 'images/logo.png' %}" alt="Logo">
       </div>
+      <button class="menu-toggle" onclick="toggleMenu()">&#9776;</button>
       <nav>
-        <ul>
-          <li><a href="{% url 'homepage' %}">Home</a></li>
-          <li><a href="#manage-inventories">Manage Inventories</a></li>
-          <li><a href="{% url 'dashboard' %}">Dashboard</a></li>
-          <li><a href="#others">Others</a></li>
-          <li><a href="#register">Register</a></li>
-          <li><a href="#login">Login</a></li>
-          <li><a href="#contact">Contact</a></li>
-          <li><a href="#about">About</a></li>
+        <ul id="nav-menu">
+          {% if request.session.user_id %}
+            <li><a href="{% url 'homepage' %}">Home</a></li>
+            <li><a href="{% url 'dashboard' %}">Dashboard</a></li>
+            <li><a href="{% url 'logout' %}">Logout</a></li>
+            <li><a href="https://unb-mds.github.io/2024-2-Agio/">About</a></li>
+          {% else %}
+            <li><a href="{% url 'homepage' %}">Home</a></li>
+            <li><a href="{% url 'login' %}">Login</a></li>
+            <li><a href="https://unb-mds.github.io/2024-2-Agio/">About</a></li>
+          {% endif %}
         </ul>
       </nav>
     </header>
-{% block content %}
 
-{% endblock content %}
+    {% block content %}
+    {% endblock content %}
+
     <footer style="background-color: #161617; color: #fff; padding: 10px 20px; text-align: center;">
-      <h3>&copy; All Right Reserved</h3>
+      <p><a href="https://github.com/unb-mds/2024-2-Agio" target="_blank" style="color: white;">Código-fonte no GitHub</a></p>
+      <p>&copy; 2025 Projeto Open Source - Licenciado sob a <a href="https://opensource.org/licenses/MIT" style="color: #ffffff;">MIT License</a>.</p>
     </footer>
+
+    <script>
+      function toggleMenu() {
+        var menu = document.getElementById("nav-menu");
+        menu.classList.toggle("active");
+      }
+    </script>
 </body>
 </html>

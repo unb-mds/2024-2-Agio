@@ -1,81 +1,123 @@
 {% extends 'base.html' %}
+{% load static %}
 {% block content %}
 
 <main>
-    <section id="hero" style="background-color: #e2e2e2; color: #161617; padding: 20px 40px; border-radius: 20px; text-align: center; margin: 5px 0; display: flex; justify-content: space-between; align-items: center; flex-direction: column;">
-        <h1>Inventário de Estoque</h1>
-        <br>
-        <br>
-        <div class="div-button">
-            <button onclick="openModal()" style="margin-right: 10px;">
-                Adicionar Item
-            </button>
-            <button id="download-btn" class="btn btn-primary">
-                Baixar CSV
-            </button>
+    <h1 style="padding: auto; color: #39413e; font-family: 'Fauna One', serif; font-size: 4rem; padding-top: 4%; padding-bottom: 4%; text-align: center;">Inventário de Estoque</h1>
+    <section id="hero" style="background-color: #e6e6e6; color: #161617; padding: 20px; border-radius: 20px; text-align: center; margin: 5px 0; display: flex; justify-content: space-between; align-items: left; flex-direction: column; max-width: 100%; overflow-x: auto;">
+        <h2 style="text-align: center; color: #333; padding-top: 2%; text-align: left; font-family: 'Domine', serif; font-size: 2rem; color: #39413e;">Produtos no Estoque</h2>
+        <div class="div-button" style="padding-top: 3%; justify-content: space-between; flex-wrap: wrap; display: flex;">
+            <div class="left-btn" style="justify-content: left;">
+                <button onclick="openModal()" style="font-family: 'Yrsa', serif; font-size: 1rem; margin-right: 10px; background-color: #39413E; border-radius: 0%;">
+                    Adicionar Item
+                </button>
+            </div>
+            <div class="right-btn" style="display: flex; flex-wrap: wrap;">
+                <button id="sort-btn" onclick="toggleSorting()" class="btn btn-primary" style="font-family: 'Yrsa', serif; font-size: 1rem; margin-right: 10px; background-color: white; color: black; border: 1px solid black;">
+                    {% if order_type == 'alphabetical' %}
+                        Ordenar Recentes
+                    {% else %}
+                        Ordenar Alfabeticamente
+                    {% endif %}
+                </button>
+                <button id="download-btn" class="btn btn-primary" style="font-family: 'Yrsa', serif; font-size: 1rem; margin-right: 10px; background-color: white; border: 1px solid black;">
+                    <img src="{% static 'images/download_24dp_000000_FILL0_wght400_GRAD0_opsz24.png' %}" style="width: 1rem; height: 1rem;">
+                </button>
+            </div>
         </div>
-    </section>
-
-    <br>
-    
-    <section id="content" style="padding: 5px 20px;">
-        <h2 style="text-align: center; color: #333;">Produtos no Estoque</h2>
-        <br>
-        <table id="inventory-table" style="width: 100%; border-collapse: collapse; text-align: left;">
-            <thead style="background-color: #e2e2e2;">
-                <tr>
-                    <th style="padding: 10px;">Nome do Item</th>
-                    <th style="padding: 10px;">Quantidade</th>
-                    <th style="padding: 10px;">Categoria</th>
-                    <th style="padding: 10px;">Descrição</th>
-                    <th style="padding: 10px;">Preço</th>
-                    <th style="padding: 10px;">Ações</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for product in products %}
-                <tr style="border-bottom: 1px solid #e2e2e2;">
-                    <td style="padding: 10px;">{{ product.product_name }}</td>
-                    <td style="padding: 10px;">{{ product.amount }}</td>
-                    <td style="padding: 10px;">{{ product.category }}</td>
-                    <td style="padding: 10px;">{{ product.description }}</td>
-                    <td style="padding: 10px;">{{ product.price }}</td>
-                    <td style="padding: 10px;">
-                        <button onclick="deleteProduct('{{ product.product_name }}')" style="padding: 5px 10px; background-color: #d9534f; color: #fff; border: none; border-radius: 5px; cursor: pointer;">
-                            Excluir
-                        </button>
-                    </td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
+        <div style="overflow-x: auto;">
+            <table id="inventory-table" style="width: 100%; border-collapse: collapse; text-align: left; min-width: 600px;">
+                <thead style="background-color: #202423;">
+                    <tr>
+                        <th style="font-family: 'Yrsa', serif; font-size: 1.2rem; padding: 10px; color: white; text-align: center;">Nome do Item</th>
+                        <th style="font-family: 'Yrsa', serif; font-size: 1.2rem; padding: 10px; color: white; text-align: center;">Quantidade</th>
+                        <th style="font-family: 'Yrsa', serif; font-size: 1.2rem; padding: 10px; color: white; text-align: center;">Categoria</th>
+                        <th style="font-family: 'Yrsa', serif; font-size: 1.2rem; padding: 10px; color: white; text-align: center;">Descrição</th>
+                        <th style="font-family: 'Yrsa', serif; font-size: 1.2rem; padding: 10px; color: white; text-align: center;">Preço</th>
+                        <th style="font-family: 'Yrsa', serif; font-size: 1.2rem; padding: 10px; color: white; text-align: center;">Ações</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for product in products %}
+                    <tr style="border-bottom: 1px solid #e2e2e2; background-color: {% cycle '#F4F6F5' '#DFE2E1' %};">
+                        <td style="font-family: 'Yrsa', serif; font-size: 1rem; padding: 10px; text-align: center;">{{ product.product_name }}</td>
+                        <td style="font-family: 'Yrsa', serif; font-size: 1rem; padding: 10px; text-align: center;">{{ product.amount }}</td>
+                        <td style="font-family: 'Yrsa', serif; font-size: 1rem; padding: 10px; text-align: center;">{{ product.category }}</td>
+                        <td style="font-family: 'Yrsa', serif; font-size: 1rem; padding: 10px; text-align: center;">{{ product.description }}</td>
+                        <td style="font-family: 'Yrsa', serif; font-size: 1rem; padding: 10px; text-align: center;">{{ product.price }}</td>
+                        <td style="font-family: 'Yrsa', serif; font-size: 1rem; padding: 10px; text-align: center;">
+                            <button onclick="editProduct('{{ product.product_name }}', '{{ product.amount }}', '{{ product.category }}', '{{ product.description }}', '{{ product.price }}')"
+                                style="padding: 5px 10px; background-color: #003F91; color: #fff; border: none; border-radius: 5px; cursor: pointer; margin-right: 5px;">
+                                <img src="{% static 'images/edit_24dp_FFFFFF_FILL0_wght400_GRAD0_opsz24.png' %}" style="width: 1rem; height: 1rem;">
+                            </button>
+                            <button onclick="deleteProduct('{{ product.product_name }}')" 
+                                style="padding: 5px 10px; background-color: #92140C; color: #fff; border: none; border-radius: 5px; cursor: pointer;">
+                                <img src="{% static 'images/delete_24dp_FFFFFF_FILL0_wght400_GRAD0_opsz24.png' %}" style="width: 1rem; height: 1rem;">
+                            </button>
+                        </td>                    
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
     </section>
 </main>
 
 <!-- Modal para Adicionar Produto -->
-<div id="itemModal" class="modal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.5); justify-content: center; align-items: center;">
-    <div class="modal-content" style="background: #fff; padding: 20px; border-radius: 10px; max-width: 500px; width: 100%; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);">
-        <h2 style="text-align: center; margin-bottom: 20px;">Adicionar Novo Produto</h2>
-        <form id="itemForm" method="post" style="display: flex; flex-direction: column; gap: 15px;">
+<div id="itemModal" class="modal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.5); justify-content: center; align-items: center; padding: 10px;">
+    <div class="modal-content" style="background: #fff; padding: 15px; border-radius: 8px; max-width: 400px; width: 100%; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);">
+        <h2 style="text-align: center; margin-bottom: 15px; font-family: 'Domine', serif; font-size: 1.8rem; color: #39413e;">Adicionar Novo Produto</h2>
+        <form id="itemForm" method="post" style="display: flex; flex-direction: column; gap: 10px;">
             {% csrf_token %}
-            <label for="itemName">Nome do Item:</label>
-            <input type="text" id="itemName" name="product_name" required style="padding: 10px; border: 1px solid #ccc; border-radius: 5px;">
+            <label for="itemName" style="font-family: 'Yrsa', serif; font-size: 1.3rem;">Nome do Item:</label>
+            <input type="text" id="itemName" name="product_name" required style="padding: 8px; border: 1px solid #ccc; border-radius: 5px; width: 100%;">
 
-            <label for="itemQuantity">Quantidade:</label>
-            <input type="number" id="itemQuantity" name="amount" required style="padding: 10px; border: 1px solid #ccc; border-radius: 5px;">
+            <label for="itemQuantity" style="font-family: 'Yrsa', serif; font-size: 1.3rem;">Quantidade:</label>
+            <input type="number" id="itemQuantity" name="amount" required style="padding: 8px; border: 1px solid #ccc; border-radius: 5px; width: 100%;">
 
-            <label for="itemCategory">Categoria:</label>
-            <input type="text" id="itemCategory" name="category" required style="padding: 10px; border: 1px solid #ccc; border-radius: 5px;">
+            <label for="itemCategory" style="font-family: 'Yrsa', serif; font-size: 1.3rem;">Categoria:</label>
+            <input type="text" id="itemCategory" name="category" required style="padding: 8px; border: 1px solid #ccc; border-radius: 5px; width: 100%;">
 
-            <label for="itemDescription">Descrição:</label>
-            <textarea id="itemDescription" name="description" rows="4" required style="padding: 10px; border: 1px solid #ccc; border-radius: 5px;"></textarea>
+            <label for="itemDescription" style="font-family: 'Yrsa', serif; font-size: 1.3rem;">Descrição:</label>
+            <textarea id="itemDescription" name="description" rows="3" required style="padding: 8px; border: 1px solid #ccc; border-radius: 5px; width: 100%;"></textarea>
 
-            <label for="itemPrice">Preço:</label>
-            <input type="number" step="0.01" id="itemPrice" name="price" required style="padding: 10px; border: 1px solid #ccc; border-radius: 5px;">
+            <label for="itemPrice" style="font-family: 'Yrsa', serif; font-size: 1.3rem;">Preço:</label>
+            <input type="number" step="0.01" id="itemPrice" name="price" required style="padding: 8px; border: 1px solid #ccc; border-radius: 5px; width: 100%;">
 
-            <div class="modal-footer" style="display: flex; justify-content: space-between; gap: 10px; margin-top: 20px;">
-                <button type="button" onclick="closeModal()" style="padding: 10px 20px; background-color: #ccc; border: none; border-radius: 5px; cursor: pointer;">Cancelar</button>
-                <button type="submit" style="padding: 10px 20px; background-color: #333; color: #fff; border: none; border-radius: 5px; cursor: pointer;">Adicionar</button>
+            <div class="modal-footer" style="display: flex; justify-content: space-between; gap: 8px; margin-top: 15px; flex-wrap: wrap;">
+                <button type="button" onclick="closeModal()" style="font-family: 'Yrsa', serif; font-size: 0.9rem; padding: 8px 16px; background-color: #ccc; border: none; border-radius: 5px; cursor: pointer; width: 48%;">Cancelar</button>
+                <button type="submit" style="font-family: 'Yrsa', serif; font-size: 0.9rem; padding: 8px 16px; background-color: #333; color: #fff; border: none; border-radius: 5px; cursor: pointer; width: 48%;">Adicionar</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- Modal para Editar Produto -->
+<div id="editModal" class="modal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.5); justify-content: center; align-items: center; padding: 10px;">
+    <div class="modal-content" style="background: #fff; padding: 15px; border-radius: 8px; max-width: 400px; width: 100%; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);">
+        <h2 style="text-align: center; margin-bottom: 15px; font-family: 'Domine', serif; font-size: 1.8rem; color: #39413e;">Editar Produto</h2>
+        <form id="editForm" method="post" style="display: flex; flex-direction: column; gap: 10px;">
+            {% csrf_token %}
+            <input type="hidden" id="editItemNameOriginal" name="product_name_original">
+
+            <label for="editItemName" style="font-family: 'Yrsa', serif; font-size: 1.3rem;">Nome do Item:</label>
+            <input type="text" id="editItemName" name="product_name" required style="padding: 8px; border: 1px solid #ccc; border-radius: 5px; width: 100%;">
+
+            <label for="editItemQuantity" style="font-family: 'Yrsa', serif; font-size: 1.3rem;">Quantidade:</label>
+            <input type="number" id="editItemQuantity" name="amount" required style="padding: 8px; border: 1px solid #ccc; border-radius: 5px; width: 100%;">
+
+            <label for="editItemCategory" style="font-family: 'Yrsa', serif; font-size: 1.3rem;">Categoria:</label>
+            <input type="text" id="editItemCategory" name="category" required style="padding: 8px; border: 1px solid #ccc; border-radius: 5px; width: 100%;">
+
+            <label for="editItemDescription" style="font-family: 'Yrsa', serif; font-size: 1.3rem;">Descrição:</label>
+            <textarea id="editItemDescription" name="description" rows="3" required style="padding: 8px; border: 1px solid #ccc; border-radius: 5px; width: 100%;"></textarea>
+
+            <label for="editItemPrice" style="font-family: 'Yrsa', serif; font-size: 1.3rem;">Preço:</label>
+            <input type="number" step="0.01" id="editItemPrice" name="price" required style="padding: 8px; border: 1px solid #ccc; border-radius: 5px; width: 100%;">
+
+            <div class="modal-footer" style="display: flex; justify-content: space-between; gap: 8px; margin-top: 15px; flex-wrap: wrap;">
+                <button type="button" onclick="closeEditModal()" style="font-family: 'Yrsa', serif; font-size: 0.9rem; padding: 8px 16px; background-color: #ccc; border: none; border-radius: 5px; cursor: pointer; width: 48%;">Cancelar</button>
+                <button type="submit" style="font-family: 'Yrsa', serif; font-size: 0.9rem; padding: 8px 16px; background-color: #333; color: #fff; border: none; border-radius: 5px; cursor: pointer; width: 48%;">Salvar Alterações</button>
             </div>
         </form>
     </div>
@@ -166,6 +208,65 @@
             })
             .catch(error => console.error("Erro ao baixar CSV:", error));
     });
+
+// Abre o modal de edição e preenche os campos com os dados do produto
+function editProduct(name, amount, category, description, price) {
+    document.getElementById('editItemNameOriginal').value = name;
+    document.getElementById('editItemName').value = name;
+    document.getElementById('editItemQuantity').value = amount;
+    document.getElementById('editItemCategory').value = category;
+    document.getElementById('editItemDescription').value = description;
+    document.getElementById('editItemPrice').value = price;
+
+    document.getElementById('editModal').style.display = 'flex';
+}
+
+// Fecha o modal de edição
+function closeEditModal() {
+    document.getElementById('editModal').style.display = 'none';
+    document.getElementById('editForm').reset();
+}
+
+function toggleSorting() {
+        const currentUrl = new URL(window.location.href);
+        const currentOrder = currentUrl.searchParams.get("order");
+
+        if (currentOrder === "alphabetical") {
+            currentUrl.searchParams.set("order", "default");
+        } else {
+            currentUrl.searchParams.set("order", "alphabetical");
+        }
+
+        window.location.href = currentUrl.toString();
+    }
+// Intercepta o envio do formulário de edição
+document.getElementById("editForm").addEventListener("submit", async function (event) {
+    event.preventDefault();
+
+    const formData = new FormData(this);
+
+    try {
+        const response = await fetch("{% url 'product_manager' %}", {
+            method: "PUT",
+            body: formData,
+            headers: {
+                "X-CSRFToken": "{{ csrf_token }}",
+            },
+        });
+
+        if (response.ok) {
+            alert("Produto atualizado com sucesso!");
+            closeEditModal();
+            location.reload();
+        } else {
+            const errorData = await response.json();
+            alert("Erro ao atualizar produto: " + JSON.stringify(errorData));
+        }
+    } catch (error) {
+        console.error("Erro ao enviar os dados:", error);
+        alert("Ocorreu um erro ao tentar atualizar o produto.");
+    }
+});
 </script>
 
 {% endblock content %}

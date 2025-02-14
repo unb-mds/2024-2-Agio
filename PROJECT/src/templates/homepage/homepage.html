@@ -1,44 +1,168 @@
 {% extends 'base.html' %}
+{% load static %}
+
 {% block content %}
 
-<main>
-    <section id="hero" style="background-color: #e2e2e2; color: #161617; padding: 50px 20px; border-radius: 20px; text-align: center;">
-        <h1>Gerencie seu Estoque com Facilidade</h1>
-        <br>
-        <p>Descubra a solução perfeita para monitorar, organizar e otimizar seus inventários de forma eficiente e prática.</p>
-        <br>
-        <button>
-            Saiba Mais
-        </button>
-    </section>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+        }
 
-    <section id="content" style="padding: 50px 20px;">
-        <h2 style="text-align: center; color: #333;">Por que Escolher Nosso Sistema?</h2>
-        <br>
-        <div style="display: flex; flex-wrap: wrap; justify-content: space-around; margin-top: 30px; gap: 20px;">
-            <!-- Funcionalidade 1 -->
-            <div style="max-width: 400px; text-align: center; border: none; background-color: #ffffff; border-radius: 10px; padding: 20px;">
-                <img src="https://dcvnv1ldeiz2n.cloudfront.net/PIP/Custom_Page/PPE_Workwear/Stock_control_Icon.png" alt="Controle de Estoque" style="width: 100px; margin-bottom: 10px;">
-                <h3 style="color: #161617;">Controle de Estoque</h3>
-                <p>Monitore suas entradas, saídas e transferências em tempo real, garantindo total controle do seu inventário.</p>
-            </div>
-    
-            <!-- Funcionalidade 2 -->
-            <div style="max-width: 400px; text-align: center; border: none; background-color: #ffffff; border-radius: 10px; padding: 20px;">
-                <img src="https://static.vecteezy.com/system/resources/previews/004/999/434/original/graph-chart-icon-symbol-of-business-free-vector.jpg" alt="Relatórios Personalizáveis" style="width: 100px; margin-bottom: 10px;">
-                <h3 style="color: #161617;">Relatórios Personalizáveis</h3>
-                <p>Gere relatórios detalhados e gráficos para tomar decisões baseadas em dados precisos.</p>
-            </div>
-    
-            <!-- Funcionalidade 3 -->
-            <div style="max-width: 400px; text-align: center; border: none; background-color: #ffffff; border-radius: 10px; padding: 20px;">
-                <img src="https://static.vecteezy.com/system/resources/previews/006/086/198/original/notification-icon-for-web-vector.jpg" alt="Notificações Inteligentes" style="width: 100px; margin-bottom: 10px;">
-                <h3 style="color: #161617;">Notificações Inteligentes</h3>
-                <p>Receba alertas sobre estoque baixo, vencimentos próximos ou movimentações incomuns.</p>
+        .container {
+            min-height: 100vh;
+            flex: 1;
+        }
+
+        .bg-container {
+            text-align: center;
+            padding: 5% 10%;
+        }
+
+        .bg-container h1 {
+            color: white;
+            font-family: 'Domine', serif;
+            font-size: 4rem;
+        }
+
+        .bg-container h3 {
+            color: rgba(230, 230, 230, 0.849);
+            font-family: 'Yrsa', serif;
+            font-size: 2rem;
+        }
+
+        .section {
+            background-color: #e6e6e6;
+            min-height: 70vh;
+            padding: 4% 5%;
+            text-align: center;
+        }
+
+        .section h2 {
+            color: #39413e;
+            font-family: 'Fauna One', serif;
+            font-size: 4rem;
+            padding-bottom: 4%;
+        }
+
+        .cards-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+            padding: 2% 0;
+        }
+
+        .card {
+            max-width: 400px;
+            width: 90%;
+            background-color: white;
+            border-radius: 10px;
+            text-align: center;
+            padding: 30px;
+            box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .card img {
+            width: 100px;
+            margin-bottom: 15px;
+        }
+
+        .card h3 {
+            color: #161617;
+            font-family: 'Domine', serif;
+            font-size: 2rem;
+        }
+
+        .card p {
+            font-family: 'Yrsa', serif;
+            font-size: 1.5rem;
+        }
+
+        /* Seção Principais Funcionalidades */
+        .funcionalidades {
+            background-color: #ffffff;
+            min-height: 65vh;
+            padding: 4% 5%;
+            text-align: center;
+        }
+
+        .funcionalidades h2 {
+            color: #39413e;
+            font-family: 'Fauna One', serif;
+            font-size: 4rem;
+            padding-bottom: 4%;
+        }
+
+        /* Responsividade para telas menores */
+        @media (max-width: 768px) {
+            .bg-container h1 {
+                font-size: 2.5rem;
+            }
+
+            .bg-container h3 {
+                font-size: 1.5rem;
+            }
+
+            .section h2, .funcionalidades h2 {
+                font-size: 3rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <!-- Seção Inicial -->
+        <div class="bg-container">
+            <h1>Gerencie seu Estoque com Facilidade</h1>
+            <h3>Descubra a solução perfeita para monitorar, organizar e otimizar seus inventários de forma eficiente e prática.</h3>
+        </div>
+
+        <!-- Seção "Por que Escolher Nosso Sistema?" -->
+        <div class="section">
+            <h2>Por que Escolher Nosso Sistema?</h2>
+            <div class="cards-container">
+                <div class="card">
+                    <img src="{% static 'images/inventory_2_24dp_000000_FILL0_wght400_GRAD0_opsz24.png' %}" alt="Controle de Estoque">
+                    <h3>Controle de Estoque</h3>
+                    <p>Monitore suas entradas e saídas em tempo real, garantindo total controle do seu inventário de estoque.</p>
+                </div>
+
+                <div class="card">
+                    <img src="{% static 'images/data_table_24dp_000000_FILL0_wght400_GRAD0_opsz24.png' %}" alt="Relatórios Personalizáveis">
+                    <h3>Relatórios Personalizáveis</h3>
+                    <p>Gere relatórios detalhados para tomar decisões baseadas em dados precisos.</p>
+                </div>
             </div>
         </div>
-    </section>
-    
-</main>
+
+        <!-- Seção "Principais Funcionalidades" -->
+        <div class="funcionalidades">
+            <h2>Principais Funcionalidades</h2>
+            <div class="cards-container">
+                <div class="card">
+                    <img src="{% static 'images/edit_note_24dp_000000_FILL0_wght400_GRAD0_opsz24.png' %}" alt="Cadastro de Produtos">
+                    <h3>Cadastro de Produtos</h3>
+                    <p>Adicione, edite e remova produtos facilmente, incluindo descrição, categorias, quantidade e preço.</p>
+                </div>
+
+                <div class="card">
+                    <img src="{% static 'images/download_24dp_000000_FILL0_wght400_GRAD0_opsz24.png' %}" alt="Gestão de Usuários">
+                    <h3>Gestão de Usuários</h3>
+                    <p>Baixe arquivos CSV facilmente para visualizar seu estoque de forma rápida.</p>
+                </div>
+
+                <div class="card">
+                    <img src="{% static 'images/contact_support_24dp_000000_FILL0_wght400_GRAD0_opsz24.png' %}" alt="Suporte">
+                    <h3>Suporte</h3>
+                    <p>Equipe de suporte disponível para ajudar com qualquer dúvida ou problema no sistema.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
 
 {% endblock content %}
