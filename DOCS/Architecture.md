@@ -10,7 +10,7 @@ O sistema de gestão de inventário é uma plataforma robusta projetada para fac
 O sistema segue uma arquitetura modular e escalável, dividida em quatro camadas principais:  
 
 1. **Frontend:** Responsável pela interação do usuário.  
-2. **Backend:** Gerencia regras de negócios, APIs REST e lógica de WebSocket.  
+2. **Backend:** Gerencia regras de negócios, APIs REST.  
 3. **Banco de Dados:** Armazena dados estruturados e históricos de ações.  
 4. **Serviços Externos:** Integrações opcionais, como provedores de autenticação ou relatórios analíticos.  
 
@@ -43,7 +43,7 @@ O sistema segue uma arquitetura modular e escalável, dividida em quatro camadas
 #### **Funções:**  
 - Processamento de regras de negócios.  
 - Controle de acesso e autenticação (JWT).  
-- Comunicação com o banco de dados e envio de atualizações via WebSocket.  
+- Comunicação com o banco de dados.  
 
 #### **Tecnologias:**  
 - Django como framework principal.  
