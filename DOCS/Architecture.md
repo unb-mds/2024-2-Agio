@@ -16,7 +16,7 @@ O sistema segue uma arquitetura modular e escalável, dividida em quatro camadas
 
 ### **Diagrama de Arquitetura Geral Inicial** 
 ```plaintext
-+---------------------+       WebSocket           +--------------------+
++---------------------+       http request        +--------------------+
 |     Frontend        | <--------------------->   |     Backend        |
 |  (HTML, JS, CSS)    |                           | (Django + REST API)|
 +---------------------+        HTTP/REST          +--------------------+
@@ -28,32 +28,6 @@ O sistema segue uma arquitetura modular e escalável, dividida em quatro camadas
                          |     (PostgreSQL)    |                 | (Auth, Analytics)  |
                          +---------------------+                 +--------------------+
 ```
-
-### **Diagrama de Arquitetura Geral Ideal** 
-```plaintext
-+---------------------+     WebSocket (Socket.IO)    +---------------------+
-|     Frontend        | <------------------------->  |     Backend         |
-|  (HTML, JS, CSS)    |                              | (Django + Channels) |
-+---------------------+         HTTP/REST            +---------------------+
-                                    |
-                                    |
-                                    V
-                         +---------------------+
-                         |   Message Broker    |
-                         |       (Redis)       |
-                         +---------------------+
-                                    ^
-                                    |
-                                    |
-                 +------------------+------------------+
-                 |                                     |
-+---------------------+                +------------------------+
-|    Banco de Dados   |                |    Workers e Tarefas   |
-|(PostgreSQL ou afins)|                | (Auth, Analytics, etc.)|
-+---------------------+                +------------------------+
-
-```
-
 
 ## **3. Principais Componentes e Papéis**  
 
@@ -73,8 +47,7 @@ O sistema segue uma arquitetura modular e escalável, dividida em quatro camadas
 
 #### **Tecnologias:**  
 - Django como framework principal.  
-- Django REST Framework (DRF) para criação de APIs.  
-- Socket.IO integrado com Django Channels para eventos dinâmicos.  
+- Django REST Framework (DRF) para criação de APIs.    
 
 ### **3.3 Banco de Dados**  
 #### **PostgreSQL**  
@@ -133,10 +106,10 @@ O fluxo de dados pode ser descrito da seguinte forma:
 Esse fluxo representa a navegação típica do usuário, com interações entre o frontend, backend e o banco de dados. O diagrama de fluxo de dados pode ser representado de forma simplificada como abaixo:
 
 ```plaintext
-Usuário --> Frontend --> Backend --> Banco de Dados
-   |            ^             |            ^
-   |            |             |            |
-Notificações <-- WebSocket <--|            |
+Usuário --> Frontend ------->  Backend --> Banco de Dados
+   |            ^                 |            ^
+   |            |                 |            |
+Notificações <--- http request <--|            |
 ``` 
 ---
 
@@ -150,7 +123,13 @@ Notificações <-- WebSocket <--|            |
 │   │   ├── models.py
 │   │   ├── tests.py
 │   │   └── views.py
-│   └── homepage
+│   ├── homepage
+│   |   ├── admin.py
+│   |   ├── apps.py
+│   |   ├── models.py
+│   |   ├── tests.py
+│   |   └── views.py
+│   └── login
 │       ├── admin.py
 │       ├── apps.py
 │       ├── models.py
@@ -198,6 +177,4 @@ Notificações <-- WebSocket <--|            |
 
 ## **8. Glossário**  
 - **CSRF:** Proteção contra falsificação de requisições.  
-- **Socket.IO:** Biblioteca para comunicação bidirecional em tempo real.  
 - **JWT:** Token usado para autenticação e autorização de usuários.
-

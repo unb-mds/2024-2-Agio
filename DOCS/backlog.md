@@ -20,9 +20,11 @@ Neste arquivo se encontra o relatório de todas as funcionalidades a serem imple
 ## **1. Gerenciamento de Produtos (Dashboard)**
 
 - ### CRUD
-  - [ ] [Issue #3](https://github.com/unb-mds/2024-2-Squad04/issues/3)
+  - [x] [Issue #3](https://github.com/unb-mds/2024-2-Squad04/issues/3)
 - ### Gerenciamento com Códigos de Barra
 - ### Categorização dos Itens
+- ### Integração com Banco de Dados
+  - [x] [Issue #25](https://github.com/unb-mds/2024-2-Squad04/issues/25)
 <br>
 
 ## **2. Composição da Main Page**
@@ -30,12 +32,17 @@ Neste arquivo se encontra o relatório de todas as funcionalidades a serem imple
 - ### Acesso à página de usuário e ao Dashboard
   - [x] [Issue #7](https://github.com/unb-mds/2024-2-Squad04/issues/7)
 - ### Informações e referências importantes sobre a aplicação
+  - [x] [Issue #6](https://github.com/unb-mds/2024-2-Squad04/issues/6)
+  - [x] [Issue #8](https://github.com/unb-mds/2024-2-Squad04/issues/8)
 <br>
 
 ## **3. Controle de Usuário**
 - ### Autenticação
+  - [x] [Issue #29](https://github.com/unb-mds/2024-2-Squad04/issues/29)
 - ### Sistema de Permissões e de Níveis de Acesso
+  - [x] [Issue #29](https://github.com/unb-mds/2024-2-Squad04/issues/29)
 - ### Sistema de Backup dos inventários e dos dados
+  - [x] [Issue #39](https://github.com/unb-mds/2024-2-Squad04/issues/39)
 <br>
 
 ## **4. Gestão de Fluxo de Inventário**

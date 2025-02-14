@@ -4,7 +4,6 @@ on:
   push:
     branches:
       - main
-      - lint_adjust
   pull_request:
     branches:
       - main

@@ -1,7 +1,7 @@
 site_dir: site
 site_url: https://unb-mds.github.io/2024-2-Squad04/
 docs_dir: DOCS
-site_name: Gestão de Inventário
+site_name: Agio - Sua Gestão de Inventário
 theme:
   # tema personalizado
   name: material
@@ -10,20 +10,14 @@ theme:
 
    # Configurações de cores e fontes
   palette:
-    primary: brown
-    accent: grey
+    primary: black
+    accent: blue
 
     # Palette toggle for light mode
     scheme: default
     toggle:
       icon: material/brightness-7 
       name: Switch to dark mode
-
-    # Palette toggle for dark mode
-    scheme: slate
-    toggle:
-      icon: material/brightness-4
-      name: Switch to light mode
 
   font:
     text: Roboto
@@ -39,6 +33,9 @@ nav:
     - "Sprint 4": sprints/sprint-04.md
     - "Sprint 5": sprints/sprint-05.md
     - "Sprint 6": sprints/sprint-06.md
+    - "Sprint 7": sprints/sprint-07.md
+    - "Sprint 8": sprints/sprint-08.md
+    - "Sprint 9": sprints/sprint-09.md
   - Arquitetura: Architecture.md
   # - Storymap (Roadmap): 
   - Protótipos: Protótipos/prototype.md
