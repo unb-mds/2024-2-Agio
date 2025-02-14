@@ -9,6 +9,7 @@
 <br>
 
 ### 📌 *Conheça o website:* https://agio-inventory-system.vercel.app/ <!-- omit from toc -->
+
 ---
 
 <br>
@@ -36,6 +37,13 @@ Ao utilizar os serviços do nosso projeto, um usuário encontrará uma série de
 *   Visualização em sequência personalizada dos itens do inventário;
 *   Exportação dos componentes de um inventário para um arquivo *.CSV*;
 *   Entre outras, a serem implementadas.
+
+<br>
+
+No GIF abaixo, é possível conferir uma demonstração rápida das funções básicas da aplicação:
+
+
+![Demonstração das Funções Básicas](DOCS/assets/app_summary.gif)
 
 <br>
 
@@ -103,7 +111,7 @@ Ao utilizar os serviços do nosso projeto, um usuário encontrará uma série de
 ## 4. Como Contribuir com o Projeto? 💻
 
 ### 🔹 Antes de Começar <!-- omit from toc -->
-- Leia a documentação do projeto no [README](../README.md)  
+- Leia a documentação do projeto no [README](README.md)  
 - Certifique-se de que sua ideia ou problema ainda não foi reportado.
 
 ### 🔹 Reportando Problemas <!-- omit from toc -->
@@ -134,19 +142,19 @@ Para contribuir com código, siga estas etapas:
 
 ### 🔹 Mais Informações <!-- omit from toc -->
 
-Para mais informações sobre estrutura de commits e tecnologias utilizadas, consulte o arquivo [CONTRIBUTING](../CONTRIBUTING.md).
+Para mais informações sobre estrutura de commits e tecnologias utilizadas, consulte o arquivo [CONTRIBUTING](CONTRIBUTING.md).
 
 <br>
 
 ## 5. Política de Segurança e Releases 🔑
 
-Atualmente, as releases do software que possuem as verificações necessárias de segurança estão descritas na tabela abaixo.
+As releases que atualmente possuem as verificações necessárias de segurança estão descritas na tabela abaixo.
 
 | Version | Safety Features          |
 | ------- | ------------------ |
 | 1.0.0   | ✅ |
 
-Para mais informações relacionadas à segurança e à notas de vulnerabilidades, consulte o arquivo [SECURITY](../SECURITY.md).
+Para mais informações relacionadas a segurança e a notas de vulnerabilidades, consulte o arquivo [SECURITY](SECURITY.md).
 
 <br>
 

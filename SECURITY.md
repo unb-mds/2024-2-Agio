@@ -20,5 +20,5 @@ Ao encontrar um problema, abra uma issue no repositório seguindo o modelo:
 
 Assim, os desenvolvedores ativos farão uma análise da sua issue.
 
-Alternativamente, você pode reportar uma vulnerabilidade de segurança do projeto enviando um e-mail para um dos contribuidores frequentes do repositório. Ele analisará a situação, tentará consertar o problema, responderá a sua mensagem e, se necessário, abrirá uma issua para o lançamento de uma nova versão estável do produto.
+Alternativamente, você pode reportar uma vulnerabilidade de segurança do projeto enviando um e-mail para um dos contribuidores frequentes do repositório. Ele analisará a situação, tentará consertar o problema, responderá a sua mensagem e, se necessário, abrirá uma issue para o lançamento de uma nova versão estável do produto.
 
