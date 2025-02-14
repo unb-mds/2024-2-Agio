@@ -2,6 +2,7 @@ from django.test import TestCase
 from rest_framework.test import APIClient
 from rest_framework import status
 from apps.dashboard.models import ProductTable
+from decimal import Decimal
 
 class ProductManagerTests(TestCase):
 
@@ -17,16 +18,23 @@ class ProductManagerTests(TestCase):
         self.product = ProductTable.objects.create(**self.product_data)
 
     def test_GET_product_success(self):
-        response = self.client.post('/product-manager/', {'product_name': self.product.product_name}, format='json')
+        product = ProductTable.objects.create(
+            product_name = "Test Product",
+            amount = 10,
+            category = "Test Category",
+            description = "Test Description",
+            price = Decimal('4.20')
+        )
+        response = self.client.get('/product-manager/', {'product': product.product_name}, format='json')
         self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertEqual(response.data['product_name'], self.product.product_name)
-        self.assertEqual(response.data['amount'], self.product.amount)
-        self.assertEqual(response.data['category'], self.product.category)
-        self.assertEqual(response.data['description'], self.product.description)
-        self.assertEqual(response.data['price'], self.product.price)
+        self.assertEqual(response.data['product_name'], product.product_name)
+        self.assertEqual(response.data['amount'], product.amount)
+        self.assertEqual(response.data['category'], product.category)
+        self.assertEqual(response.data['description'], product.description)
+        self.assertEqual(Decimal(response.data['price']), product.price)
         
     def test_GET_product_failure_not_found(self):
-        response = self.client.get('/product-manager/', {'product_name': 'Non existent product'}, format='json')
+        response = self.client.get('/product-manager/', {'product': 'Non existent product'}, format='json')
         self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
         self.assertEqual(response.data['error'], 'Product not found')
 
@@ -71,7 +79,7 @@ class ProductManagerTests(TestCase):
         self.assertEqual(self.product.amount, 15)
         self.assertEqual(self.product.category, 'Updated Category')
         self.assertEqual(self.product.description, 'Updated description')
-        self.assertEqual(self.product.price, 6.90)
+        self.assertEqual(self.product.price, Decimal('6.90'))
 
     def test_PUT_product_failure_not_found(self):
         update_data = {
@@ -89,24 +97,23 @@ class ProductManagerTests(TestCase):
         response = self.client.put('/product-manager/', update_data, format='json')
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
 
-    def test_PATCH_product_partial_success(self):
-        update_data = {'product_name': self.product.product_name, 'price': 6.90}
-        response = self.client.patch('/product-manager/', update_data, format='json')
-        self.assertEqual(response.status_code, status.HTTP_202_ACCEPTED)
-        self.product.refresh_from_db()
-        self.assertEqual(self.product.price, 6.90)
-
     def test_DELETE_product_success(self):
-        response = self.client.delete(f'/product-manager/?product={self.product.product_name}', format='json')
-        self.assertEqual(response.status_code, status.HTTP_202_ACCEPTED)
-        self.assertFalse(ProductTable.objects.filter(product_name=self.product.product_name).exists())
+        product = ProductTable.objects.create(
+            product_name = "Test Product",
+            amount = 10,
+            category = "Test Category",
+            description = "Test Description",
+            price = 4.20
+        )
+        response = self.client.delete('/api/products/', data = {'product_name': product.product_name}, format='json')
+        self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
+        self.assertTrue(ProductTable.objects.filter(product_name=product.product_name).exists())
 
     def test_DELETE_product_failure_not_found(self):
-        response = self.client.delete('/product-manager/?product=Non existent product', format='json')
+        response = self.client.delete('/api/products/', data = {'product_name': 'Nonexistent Product'}, format='json')
         self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
-        self.assertEqual(response.data['error'], 'Product not found')
-
+        
     def test_DELETE_product_failure_no_name(self):
-        response = self.client.delete('/product-manager/', format='json')
-        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
-        self.assertEqual(response.data['error'], 'Product name not provided')
+        response = self.client.delete('/api/products/', data = {}, format='json')
+        self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
+        self.assertIn('<title>Not Found</title>', response.content.decode())

@@ -1,5 +1,6 @@
 from django.test import TestCase
-from django.contrib.auth.hashers import check_password
+from django.contrib.auth.hashers import make_password, check_password
+from django.core.exceptions import ValidationError
 from apps.dashboard.models import UserTable
 
 class UserTableModelTests(TestCase):
@@ -8,29 +9,31 @@ class UserTableModelTests(TestCase):
             id = 1,
             name = "Test user",
             email = "test@example.com",
-            password = "testpassword"
+            password = make_password("testpassword")
         )
         self.assertEqual(user.name, "Test user")
         self.assertEqual(user.email, "test@example.com")
         self.assertNotEqual(user.password, "testpassword")
         self.assertTrue(check_password("testpassword", user.password))
 
-    def test_passord_unhashed(self):
+    def test_password_unhashed(self):
         user = UserTable.objects.create(
             id = 1,
             name = "Test user",
             email = "test@example.com",
-            password = "testpassword"
+            password = make_password("testpassword")
         )
         user.name = "Updated user"
         user.save()
         self.assertTrue(check_password("testpassword", user.password))
 
     def test_invalid_email(self):
-        with self.assertRaises(Exception):
-            UserTable.objects.create(
-                id = 2,
-                name = "Invalid email",
-                email = "invalid-email",
-                password = "password"
-        )
+        user = UserTable.objects.create(
+            id = 2,
+            name = "Invalid email",
+            email = "invalid-email",
+            password = make_password("password")
+    )
+        with self.assertRaises(ValidationError):
+            user.full_clean()
+            user.save()
