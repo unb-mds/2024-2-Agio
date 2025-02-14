@@ -15,6 +15,7 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
+# from django.urls import include
 from django.urls import path
 from apps.dashboard.views import product_manager
 from apps.homepage.views import (
@@ -22,11 +23,20 @@ from apps.homepage.views import (
 )
 from apps.dashboard.views import (
     dashboard_view,
+    export_dashboard_csv,
 )
+from apps.login.views import (
+    login_view, logout_view
+)
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', home_page_view, name='homepage'),  # Rota principal para a homepage
-    path('dashboard/', dashboard_view, name='dashboard'),  # Rota para o dashboard
+    path('', home_page_view, name='homepage'),  # Página inicial (raiz)
+    path('homepage/', home_page_view, name='homepage_redirect'),  # Opcional
+    path('dashboard/', dashboard_view, name='dashboard'),
+    path('dashboard/export/csv/', export_dashboard_csv, name='export_csv'),
+    path('login/', login_view, name='login'),
+    path('logout/', logout_view, name='logout'),
     path('product-manager/', product_manager, name='product_manager'),
 ]
