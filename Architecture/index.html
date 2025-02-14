@@ -11,7 +11,7 @@
         <link rel="canonical" href="https://unb-mds.github.io/2024-2-Squad04/Architecture/">
       
       
-        <link rel="prev" href="../sprints/sprint-06/">
+        <link rel="prev" href="../sprints/sprint-09/">
       
       
         <link rel="next" href="../Prot%C3%B3tipos/prototype/">
@@ -22,7 +22,7 @@
     
     
       
-        <title>Arquitetura - Gestão de Inventário</title>
+        <title>Arquitetura - Agio - Sua Gestão de Inventário</title>
       
     
     
@@ -63,7 +63,7 @@
     
     
     
-    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="brown" data-md-color-accent="grey">
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="black" data-md-color-accent="blue">
   
     
     <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
@@ -86,7 +86,7 @@
 
 <header class="md-header" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="Header">
-    <a href=".." title="Gestão de Inventário" class="md-header__button md-logo" aria-label="Gestão de Inventário" data-md-component="logo">
+    <a href=".." title="Agio - Sua Gestão de Inventário" class="md-header__button md-logo" aria-label="Agio - Sua Gestão de Inventário" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
@@ -100,7 +100,7 @@
       <div class="md-header__ellipsis">
         <div class="md-header__topic">
           <span class="md-ellipsis">
-            Gestão de Inventário
+            Agio - Sua Gestão de Inventário
           </span>
         </div>
         <div class="md-header__topic" data-md-component="header-topic">
@@ -281,13 +281,13 @@
 
 <nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href=".." title="Gestão de Inventário" class="md-nav__button md-logo" aria-label="Gestão de Inventário" data-md-component="logo">
+    <a href=".." title="Agio - Sua Gestão de Inventário" class="md-nav__button md-logo" aria-label="Agio - Sua Gestão de Inventário" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
 
     </a>
-    Gestão de Inventário
+    Agio - Sua Gestão de Inventário
   </label>
   
   <ul class="md-nav__list" data-md-scrollfix>
@@ -506,6 +506,72 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../sprints/sprint-07/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Sprint 7
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../sprints/sprint-08/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Sprint 8
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../sprints/sprint-09/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Sprint 9
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -590,15 +656,6 @@
   <a href="#diagrama-de-arquitetura-geral-inicial" class="md-nav__link">
     <span class="md-ellipsis">
       Diagrama de Arquitetura Geral Inicial
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#diagrama-de-arquitetura-geral-ideal" class="md-nav__link">
-    <span class="md-ellipsis">
-      Diagrama de Arquitetura Geral Ideal
     </span>
   </a>
   
@@ -950,15 +1007,6 @@
   
 </li>
         
-          <li class="md-nav__item">
-  <a href="#diagrama-de-arquitetura-geral-ideal" class="md-nav__link">
-    <span class="md-ellipsis">
-      Diagrama de Arquitetura Geral Ideal
-    </span>
-  </a>
-  
-</li>
-        
       </ul>
     </nav>
   
@@ -1161,7 +1209,7 @@
 <li><strong>Serviços Externos:</strong> Integrações opcionais, como provedores de autenticação ou relatórios analíticos.  </li>
 </ol>
 <h3 id="diagrama-de-arquitetura-geral-inicial"><strong>Diagrama de Arquitetura Geral Inicial</strong></h3>
-<pre><code class="language-plaintext">+---------------------+       WebSocket           +--------------------+
+<pre><code class="language-plaintext">+---------------------+       http request        +--------------------+
 |     Frontend        | &lt;---------------------&gt;   |     Backend        |
 |  (HTML, JS, CSS)    |                           | (Django + REST API)|
 +---------------------+        HTTP/REST          +--------------------+
@@ -1172,29 +1220,6 @@
                          |    Banco de Dados   |                 |  Integrações       |
                          |     (PostgreSQL)    |                 | (Auth, Analytics)  |
                          +---------------------+                 +--------------------+
-</code></pre>
-<h3 id="diagrama-de-arquitetura-geral-ideal"><strong>Diagrama de Arquitetura Geral Ideal</strong></h3>
-<pre><code class="language-plaintext">+---------------------+     WebSocket (Socket.IO)    +---------------------+
-|     Frontend        | &lt;-------------------------&gt;  |     Backend         |
-|  (HTML, JS, CSS)    |                              | (Django + Channels) |
-+---------------------+         HTTP/REST            +---------------------+
-                                    |
-                                    |
-                                    V
-                         +---------------------+
-                         |   Message Broker    |
-                         |       (Redis)       |
-                         +---------------------+
-                                    ^
-                                    |
-                                    |
-                 +------------------+------------------+
-                 |                                     |
-+---------------------+                +------------------------+
-|    Banco de Dados   |                |    Workers e Tarefas   |
-|(PostgreSQL ou afins)|                | (Auth, Analytics, etc.)|
-+---------------------+                +------------------------+
-
 </code></pre>
 <h2 id="3-principais-componentes-e-papeis"><strong>3. Principais Componentes e Papéis</strong></h2>
 <h3 id="31-frontend"><strong>3.1 Frontend</strong></h3>
@@ -1216,8 +1241,7 @@
 <h4 id="tecnologias"><strong>Tecnologias:</strong></h4>
 <ul>
 <li>Django como framework principal.  </li>
-<li>Django REST Framework (DRF) para criação de APIs.  </li>
-<li>Socket.IO integrado com Django Channels para eventos dinâmicos.  </li>
+<li>Django REST Framework (DRF) para criação de APIs.    </li>
 </ul>
 <h3 id="33-banco-de-dados"><strong>3.3 Banco de Dados</strong></h3>
 <h4 id="postgresql"><strong>PostgreSQL</strong></h4>
@@ -1292,10 +1316,10 @@
 <li>Dependendo da configuração do sistema, pode haver integrações externas para autenticação (SSO) ou análise de dados (relatórios).</li>
 </ol>
 <p>Esse fluxo representa a navegação típica do usuário, com interações entre o frontend, backend e o banco de dados. O diagrama de fluxo de dados pode ser representado de forma simplificada como abaixo:</p>
-<pre><code class="language-plaintext">Usuário --&gt; Frontend --&gt; Backend --&gt; Banco de Dados
-   |            ^             |            ^
-   |            |             |            |
-Notificações &lt;-- WebSocket &lt;--|            |
+<pre><code class="language-plaintext">Usuário --&gt; Frontend -------&gt;  Backend --&gt; Banco de Dados
+   |            ^                 |            ^
+   |            |                 |            |
+Notificações &lt;--- http request &lt;--|            |
 </code></pre>
 <hr />
 <h2 id="5-estrutura-de-diretorios"><strong>5. Estrutura de Diretórios</strong></h2>
@@ -1306,7 +1330,13 @@ Notificações &lt;-- WebSocket &lt;--|            |
 │   │   ├── models.py
 │   │   ├── tests.py
 │   │   └── views.py
-│   └── homepage
+│   ├── homepage
+│   |   ├── admin.py
+│   |   ├── apps.py
+│   |   ├── models.py
+│   |   ├── tests.py
+│   |   └── views.py
+│   └── login
 │       ├── admin.py
 │       ├── apps.py
 │       ├── models.py
@@ -1371,7 +1401,6 @@ Notificações &lt;-- WebSocket &lt;--|            |
 <h2 id="8-glossario"><strong>8. Glossário</strong></h2>
 <ul>
 <li><strong>CSRF:</strong> Proteção contra falsificação de requisições.  </li>
-<li><strong>Socket.IO:</strong> Biblioteca para comunicação bidirecional em tempo real.  </li>
 <li><strong>JWT:</strong> Token usado para autenticação e autorização de usuários.</li>
 </ul>
 
