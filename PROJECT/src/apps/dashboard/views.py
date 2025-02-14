@@ -78,27 +78,29 @@ def product_manager(request):
                         status=status.HTTP_400_BAD_REQUEST)
 
     elif request.method == 'PUT':
-        product_name_original = request.data.get('product_name_original')  # Nome antigo
-        product_name_new = request.data.get('product_name')  # Nome novo
+        product_name_original = request.data.get('product_name_original')
 
         if not product_name_original:
             return Response({'error': 'Original product name not provided'},
                             status=status.HTTP_400_BAD_REQUEST)
 
         try:
-            product = ProductTable.objects.get(product_name=product_name_original)
+            product = ProductTable.objects.get(
+                product_name=product_name_original)
+
         except ProductTable.DoesNotExist:
             return Response({'error': 'Product not found'},
                             status=status.HTTP_404_NOT_FOUND)
 
-        serializer = ProductSerializer(product, data=request.data, partial=True)
+        serializer = ProductSerializer(product,
+                                       data=request.data,
+                                       partial=True)
 
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_202_ACCEPTED)
 
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
 
     elif request.method == 'DELETE':
         product_name = request.data.get('product_name')
