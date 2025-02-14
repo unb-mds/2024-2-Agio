@@ -6,7 +6,7 @@
     <h1 style="font-family: 'Fauna One', serif; color: #39413e;">Página de Login</h1>
     <br/>
     <div class="login-fields">
-        {% csrf_token %}  <!-- Django gera automaticamente o token CSRF -->
+        {% csrf_token %}
 
         <label for="username" style="font-family: 'Domine', serif;">Username</label>
         <input type="text" id="username" placeholder="Insira seu Username" required>
@@ -14,9 +14,15 @@
         <label for="password" style="font-family: 'Domine', serif; padding-top: 3%;">Senha</label>
         <input type="password" id="password" placeholder="Insira sua senha" required>
 
-        <button type="button" onclick="handleLogin()" style="background-color: #39413E; font-family: 'Yrsa', serif; font-size: 1rem;">Login</button>
+        <div style="display: flex; justify-content: center; margin-top: 10px;">
+            <button type="button" onclick="handleLogin()" 
+                style="background-color: #39413E; font-family: 'Yrsa', serif; font-size: 1rem;">
+                Login
+            </button>
+        </div>
     </div>
 </div>
+
 
 <script>
     function getCSRFToken() {

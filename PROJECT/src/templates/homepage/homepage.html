@@ -3,66 +3,166 @@
 
 {% block content %}
 
-<body style="display: flex; flex-direction: column;">
-    <div class="container" style="min-height: 100vh; flex: 1;">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .container {
+            min-height: 100vh;
+            flex: 1;
+        }
+
+        .bg-container {
+            text-align: center;
+            padding: 5% 10%;
+        }
+
+        .bg-container h1 {
+            color: white;
+            font-family: 'Domine', serif;
+            font-size: 4rem;
+        }
+
+        .bg-container h3 {
+            color: rgba(230, 230, 230, 0.849);
+            font-family: 'Yrsa', serif;
+            font-size: 2rem;
+        }
+
+        .section {
+            background-color: #e6e6e6;
+            min-height: 70vh;
+            padding: 4% 5%;
+            text-align: center;
+        }
+
+        .section h2 {
+            color: #39413e;
+            font-family: 'Fauna One', serif;
+            font-size: 4rem;
+            padding-bottom: 4%;
+        }
+
+        .cards-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+            padding: 2% 0;
+        }
+
+        .card {
+            max-width: 400px;
+            width: 90%;
+            background-color: white;
+            border-radius: 10px;
+            text-align: center;
+            padding: 30px;
+            box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .card img {
+            width: 100px;
+            margin-bottom: 15px;
+        }
+
+        .card h3 {
+            color: #161617;
+            font-family: 'Domine', serif;
+            font-size: 2rem;
+        }
+
+        .card p {
+            font-family: 'Yrsa', serif;
+            font-size: 1.5rem;
+        }
+
+        /* Seção Principais Funcionalidades */
+        .funcionalidades {
+            background-color: #ffffff;
+            min-height: 65vh;
+            padding: 4% 5%;
+            text-align: center;
+        }
+
+        .funcionalidades h2 {
+            color: #39413e;
+            font-family: 'Fauna One', serif;
+            font-size: 4rem;
+            padding-bottom: 4%;
+        }
+
+        /* Responsividade para telas menores */
+        @media (max-width: 768px) {
+            .bg-container h1 {
+                font-size: 2.5rem;
+            }
+
+            .bg-container h3 {
+                font-size: 1.5rem;
+            }
+
+            .section h2, .funcionalidades h2 {
+                font-size: 3rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <!-- Seção Inicial -->
         <div class="bg-container">
-            <h1 style="padding: auto; color: white; font-family: 'Domine', serif; font-size: 4rem;">
-                Gerencie seu Estoque com Facilidade
-            </h1>
-            <h3 style="padding: auto; color: rgba(230, 230, 230, 0.849); font-family: 'Yrsa', serif; font-size: 2rem;">
-                Descubra a solução perfeita para monitorar, organizar e otimizar seus inventários de forma eficiente e prática.
-            </h3>
+            <h1>Gerencie seu Estoque com Facilidade</h1>
+            <h3>Descubra a solução perfeita para monitorar, organizar e otimizar seus inventários de forma eficiente e prática.</h3>
         </div>
-        
-        <div style="background-color: #e6e6e6; height: 70rem; padding-top: 4%;">
-            <h2 style="text-align: center; color: #39413e; padding-top: 4%; padding-bottom: 4%; font-family: 'Fauna One', serif; font-size: 5rem;">Por que Escolher Nosso Sistema?</h2>
-            <br/>
-            <br/>
-            <div style="display: flex; flex-wrap: wrap; justify-content: space-around; margin-top: 30px; gap: 20px; padding-top: 4%; padding-bottom: 4%;">
-                <div style="max-width: 600px; text-align: center; border: none; background-color: white; border-radius: 10px; padding: auto; height: 30rem">
-                    <img src="{% static 'images/inventory_2_24dp_000000_FILL0_wght400_GRAD0_opsz24.png' %}" alt="Controle de Estoque" style="width: 100px; margin-bottom: 10px; padding-top: 10%;">
-                    <h3 style="color: #161617; font-family: 'Domine', serif; font-size: 2rem; padding-top: 6%;">Controle de Estoque</h3>
-                    <br>
-                    <br>
-                    <p style="font-family: 'Yrsa', serif; font-size: 1.5rem; padding-top: 6%;">Monitore suas entradas e saídas em tempo real, garantindo total controle do seu inventário de estoque.</p>
+
+        <!-- Seção "Por que Escolher Nosso Sistema?" -->
+        <div class="section">
+            <h2>Por que Escolher Nosso Sistema?</h2>
+            <div class="cards-container">
+                <div class="card">
+                    <img src="{% static 'images/inventory_2_24dp_000000_FILL0_wght400_GRAD0_opsz24.png' %}" alt="Controle de Estoque">
+                    <h3>Controle de Estoque</h3>
+                    <p>Monitore suas entradas e saídas em tempo real, garantindo total controle do seu inventário de estoque.</p>
                 </div>
-                <div style="max-width: 600px; text-align: center; border: none; background-color: white; border-radius: 10px; padding: auto;">
-                    <img src="{% static 'images/data_table_24dp_000000_FILL0_wght400_GRAD0_opsz24.png' %}" alt="Relatórios Personalizáveis" style="width: 100px; margin-bottom: 10px; padding-top: 10%;">
-                    <h3 style="color: #161617; font-family: 'Domine', serif; font-size: 2rem; padding-top: 6%;">Relatórios Personalizáveis</h3>
-                    <br>
-                    <br>
-                    <p style="font-family: 'Yrsa', serif; font-size: 1.5rem; padding-top: 6%;">Gere relatórios detalhados para tomar decisões baseadas em dados precisos.</p>
+
+                <div class="card">
+                    <img src="{% static 'images/data_table_24dp_000000_FILL0_wght400_GRAD0_opsz24.png' %}" alt="Relatórios Personalizáveis">
+                    <h3>Relatórios Personalizáveis</h3>
+                    <p>Gere relatórios detalhados para tomar decisões baseadas em dados precisos.</p>
                 </div>
             </div>
         </div>
-        <div style="background-color: #ffffff; height: 65rem; padding: 4% 0%;">
-            <h2 style="text-align: center; color: #39413e; padding-top: 4%; padding-bottom: 4%; font-family: 'Fauna One', serif; font-size: 5rem;">Principais Funcionalidades</h2>
-            <br/>
-            <br/>
-            <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 30px; padding-top: 4%; padding-bottom: 4%; height: 35rem">
 
-                <div style="max-width: 400px; text-align: center; background-color: #f8f8f8; border-radius: 10px; padding: auto;">
-                    <img src="{% static 'images/edit_note_24dp_000000_FILL0_wght400_GRAD0_opsz24.png' %}" alt="Cadastro de Produtos" style="width: 100px; margin-bottom: 10px; padding-top: 10%;">
-                    <h3 style="color: #070707; font-family: 'Domine', serif; font-size: 2rem; padding-top: 6%;">Cadastro de Produtos</h3>
-                    <br>
-                    <p style="font-family: 'Yrsa', serif; font-size: 1.5rem; padding-top: 6%;">Adicione, edite e remova produtos facilmente, incluindo descrição, categorias, quantidade e preço.</p>
+        <!-- Seção "Principais Funcionalidades" -->
+        <div class="funcionalidades">
+            <h2>Principais Funcionalidades</h2>
+            <div class="cards-container">
+                <div class="card">
+                    <img src="{% static 'images/edit_note_24dp_000000_FILL0_wght400_GRAD0_opsz24.png' %}" alt="Cadastro de Produtos">
+                    <h3>Cadastro de Produtos</h3>
+                    <p>Adicione, edite e remova produtos facilmente, incluindo descrição, categorias, quantidade e preço.</p>
                 </div>
-        
-                <div style="max-width: 400px; text-align: center; background-color: #f8f8f8; border-radius: 10px; padding: auto;">
-                    <img src="{% static 'images/download_24dp_000000_FILL0_wght400_GRAD0_opsz24.png' %}" alt="Controle de Usuários" style="width: 100px; margin-bottom: 10px; padding-top: 10%">
-                    <h3 style="color: #070707; font-family: 'Domine', serif; font-size: 2rem; padding-top: 6%;">Gestão de Usuários</h3>
-                    <br>
-                    <p style="font-family: 'Yrsa', serif; font-size: 1.5rem; padding-top: 6%;">Baixe arquivos CSV facilmente para visualizar seu estoque de forma rápida.</p>
+
+                <div class="card">
+                    <img src="{% static 'images/download_24dp_000000_FILL0_wght400_GRAD0_opsz24.png' %}" alt="Gestão de Usuários">
+                    <h3>Gestão de Usuários</h3>
+                    <p>Baixe arquivos CSV facilmente para visualizar seu estoque de forma rápida.</p>
                 </div>
-        
-                <div style="max-width: 400px; text-align: center; background-color: #f8f8f8; border-radius: 10px; padding: auto;">
-                    <img src="{% static 'images/contact_support_24dp_000000_FILL0_wght400_GRAD0_opsz24.png' %}" alt="Suporte" style="width: 100px; margin-bottom: 10px; padding-top: 10%">
-                    <h3 style="color: #070707; font-family: 'Domine', serif; font-size: 2rem; padding-top: 6%;">Suporte</h3>
-                    <br>
-                    <p style="font-family: 'Yrsa', serif; font-size: 1.5rem; padding-top: 6%;">Equipe de suporte disponível para ajudar com qualquer dúvida ou problema no sistema.</p>
+
+                <div class="card">
+                    <img src="{% static 'images/contact_support_24dp_000000_FILL0_wght400_GRAD0_opsz24.png' %}" alt="Suporte">
+                    <h3>Suporte</h3>
+                    <p>Equipe de suporte disponível para ajudar com qualquer dúvida ou problema no sistema.</p>
                 </div>
             </div>
         </div>
     </div>
 </body>
+
 {% endblock content %}
