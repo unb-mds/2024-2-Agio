@@ -25,11 +25,18 @@ from apps.dashboard.views import (
     dashboard_view,
     export_dashboard_csv,
 )
+from apps.login.views import (
+    login_view, logout_view
+)
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', home_page_view, name='homepage'),  # Rota principal para homepage
-    path('dashboard/', dashboard_view, name='dashboard'),  # Rota pro dashboard
+    path('', home_page_view, name='homepage'),  # Página inicial (raiz)
+    path('homepage/', home_page_view, name='homepage_redirect'),  # Opcional
+    path('dashboard/', dashboard_view, name='dashboard'),
     path('dashboard/export/csv/', export_dashboard_csv, name='export_csv'),
+    path('login/', login_view, name='login'),
+    path('logout/', logout_view, name='logout'),
     path('product-manager/', product_manager, name='product_manager'),
 ]

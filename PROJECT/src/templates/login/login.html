@@ -1,0 +1,68 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="login-container">
+    <h1 style="font-family: 'Fauna One', serif; color: #39413e;">Página de Login</h1>
+    <br/>
+    <div class="login-fields">
+        {% csrf_token %}
+
+        <label for="username" style="font-family: 'Domine', serif;">Username</label>
+        <input type="text" id="username" placeholder="Insira seu Username" required>
+
+        <label for="password" style="font-family: 'Domine', serif; padding-top: 3%;">Senha</label>
+        <input type="password" id="password" placeholder="Insira sua senha" required>
+
+        <div style="display: flex; justify-content: center; margin-top: 10px;">
+            <button type="button" onclick="handleLogin()" 
+                style="background-color: #39413E; font-family: 'Yrsa', serif; font-size: 1rem;">
+                Login
+            </button>
+        </div>
+    </div>
+</div>
+
+
+<script>
+    function getCSRFToken() {
+        const cookies = document.cookie.split('; ');
+        for (const cookie of cookies) {
+            const [name, value] = cookie.split('=');
+            if (name === 'csrftoken') {
+                return value;
+            }
+        }
+        return '';
+    }
+
+    function handleLogin() {
+        const username = document.getElementById('username').value;
+        const password = document.getElementById('password').value;
+        const csrfToken = getCSRFToken(); // Obtém o token CSRF dos cookies
+
+        if (!username || !password) {
+            alert("Por favor, preencha todos os campos.");
+            return;
+        }
+
+        fetch('/login/', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': csrfToken,  // Adiciona o token CSRF no cabeçalho
+            },
+            body: JSON.stringify({ username, password }),
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.redirect_url) {
+                window.location.href = data.redirect_url; // Redireciona para o dashboard
+            } else {
+                alert(data.error || 'Falha no login. Verifique suas credenciais.');
+            }
+        })
+        .catch(error => console.error('Erro:', error));
+    }
+</script>  
+{% endblock content %}

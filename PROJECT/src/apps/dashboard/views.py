@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 # from django.http import HttpResponse, JsonResponse
 
 from rest_framework.decorators import api_view
@@ -15,9 +15,20 @@ from io import StringIO
 
 
 def dashboard_view(request):
-    products = ProductTable.objects.all()
+    if not request.session.get('user_id'):
+        return redirect('login')  # Redireciona pro login
+
+    # Obtém o parâmetro da query string
+    order_type = request.GET.get('order', 'default')
+
+    if order_type == 'alphabetical':
+        products = ProductTable.objects.order_by('product_name')
+    else:
+        products = ProductTable.objects.all()  # Ordem padrão (default)
+
     return render(request, "dashboard/dashboard.html",
-                  {"products": products})
+                  {"products": products,
+                   "order_type": order_type})
 
 
 @api_view(['GET'])
@@ -67,14 +78,16 @@ def product_manager(request):
                         status=status.HTTP_400_BAD_REQUEST)
 
     elif request.method == 'PUT':
-        product_name = request.data.get('product_name')
+        product_name_original = request.data.get('product_name_original')
 
-        if not product_name:
-            return Response({'error': 'Product name not provided'},
+        if not product_name_original:
+            return Response({'error': 'Original product name not provided'},
                             status=status.HTTP_400_BAD_REQUEST)
 
         try:
-            product = ProductTable.objects.get(product_name=product_name)
+            product = ProductTable.objects.get(
+                product_name=product_name_original)
+
         except ProductTable.DoesNotExist:
             return Response({'error': 'Product not found'},
                             status=status.HTTP_404_NOT_FOUND)
@@ -85,11 +98,9 @@ def product_manager(request):
 
         if serializer.is_valid():
             serializer.save()
-            return Response(serializer.data,
-                            status=status.HTTP_202_ACCEPTED)
+            return Response(serializer.data, status=status.HTTP_202_ACCEPTED)
 
-        return Response(serializer.errors,
-                        status=status.HTTP_400_BAD_REQUEST)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
     elif request.method == 'DELETE':
         product_name = request.data.get('product_name')
